@@ -1,8 +1,8 @@
 Package: cpfa
 Type: Package
 Title: Classification with Parallel Factor Analysis
-Version: 1.2-8
-Date: 2026-04-13
+Version: 1.2-9
+Date: 2026-05-15
 Authors@R: person(c("Matthew", "A."), "Asisgress", email = "mattgress@protonmail.ch", role = c("aut", "cre"))
 Maintainer: Matthew A. Asisgress <mattgress@protonmail.ch>
 Depends: multiway
@@ -15,7 +15,3 @@ License: GPL (>= 2)
 URL: https://github.com/matthewasisgress/cpfa
 VignetteBuilder: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2026-04-12 18:51:19 UTC; nr2
-Author: Matthew A. Asisgress [aut, cre]
-Repository: CRAN
-Date/Publication: 2026-04-14 00:50:03 UTC
