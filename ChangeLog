@@ -1,6 +1,6 @@
 Changes: version 1.2-9  (2026-05-15)
 
-1.) Added URLs to facilitate bug reports
+1.) Added URLs to allow for bug reports
 	- Previously package did not provide a place for reporting bugs
 	- Now package provides a link to a github repository for bug reports
 
