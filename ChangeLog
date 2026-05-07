@@ -12,6 +12,10 @@ Changes: version 1.2-9  (2026-05-15)
 	- Previously function 'plotcpfa' did not provide classification mode training weights in output 'train.weights'
 	- Now the function provides these weights in 'train.weights' as the list 'Classtrain.weights'
 
+4.) Bug fix in function 'cpfa'
+	- Previously the function called function 'cpm.all' and swapped some values incorrectly
+	- Now values have been ordered correctly in function 'cpm'
+
 ----------------
 
 Changes: version 1.2-8  (2026-04-13)

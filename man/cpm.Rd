@@ -12,16 +12,16 @@ cpm(x, y, level = NULL, fbeta = NULL, prior = NULL)
 }
 \arguments{
 \item{x}{
-  Predicted class labels of class numeric, factor, or integer. If factor, 
-  converted to class integer in the order of factor levels with integers 
-  beginning at 0 (i.e., for binary classification, factor levels become 0 
-  and 1; for multiclass, levels become 0, 1, 2, etc.).
-}
-\item{y}{
   Known class labels of class numeric, factor, or integer. If factor, converted 
   to class integer in the order of factor levels with integers beginning at 
   0 (i.e., for binary classification, factor levels become 0 and 1; for 
   multiclass, levels become 0, 1, 2, etc.). 
+}
+\item{y}{
+  Predicted class labels of class numeric, factor, or integer. If factor, 
+  converted to class integer in the order of factor levels with integers 
+  beginning at 0 (i.e., for binary classification, factor levels become 0 
+  and 1; for multiclass, levels become 0, 1, 2, etc.).
 }
 \item{level}{
   Optional argument specifying possible class labels. For cases where 
@@ -207,7 +207,7 @@ predict.labels <- predict(object = tune.object, newdata = data$X[, , 81:100],
 # calculate performance measures for predicted class labels
 y.pred <- predict.labels[, 1]
 yproc <- as.numeric(data$y[81:100]) - 1
-evalmeasure <- cpm(x = y.pred, y = yproc)
+evalmeasure <- cpm(x = yproc, y = y.pred)
 
 # print performance measures
 evalmeasure
