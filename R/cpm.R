@@ -36,8 +36,8 @@ cpm <-
     cm <- matrix(0, nrow = llev, ncol = llev)
     colnames(cm) <- rownames(cm) <- 1:llev - 1
     for (k in 1:length(x)) {
-       roww <- which(rownames(cm) == x[k])
-       colum <- which(colnames(cm) == y[k])
+       roww <- which(rownames(cm) == y[k])
+       colum <- which(colnames(cm) == x[k])
        cm[roww, colum] <- cm[roww, colum] + 1
     }
     colnames(cm) <- rownames(cm) <- level
@@ -68,13 +68,13 @@ cpm <-
     acc <- (sum(diag(cm))) / sum(cm)
     err <- 1 - acc
     if (llev == 2) {
-      tpr <- cm[2,2] / (cm[2,2] + cm[2,1])
+      tpr <- cm[2, 2] / (cm[2, 2] + cm[2, 1])
       fnr <- 1 - tpr
-      fpr <- cm[1,2] / (cm[1,2] + cm[1,1])
+      fpr <- cm[1, 2] / (cm[1, 2] + cm[1, 1])
       tnr <- 1 - fpr
-      ppv <- cm[2,2] / (cm[2,2] + cm[1,2])
+      ppv <- cm[2, 2] / (cm[2, 2] + cm[1, 2])
       fdr <- 1 - ppv
-      npv <- cm[1,1] / (cm[1,1] + cm[2,1])
+      npv <- cm[1, 1] / (cm[1, 1] + cm[2, 1])
       fom <- 1 - npv
     } else {
       tpr.sum <- ppv.sum <- fpr.sum <- npv.sum <- rep(0, llev)
