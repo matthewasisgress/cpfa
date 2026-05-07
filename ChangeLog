@@ -14,7 +14,7 @@ Changes: version 1.2-9  (2026-05-15)
 
 4.) Bug fix in function 'cpfa'
 	- Previously the function called function 'cpm.all' and swapped some values incorrectly
-	- Now values have been ordered correctly in function 'cpm'
+	- Now values have been ordered correctly in function 'cpm.all'
 
 ----------------
 
