@@ -14,7 +14,7 @@ Changes: version 1.3  (2026-07-15)
 
 4.) Fixed bug in function 'simcpfa'
 	- Previously function 'simcpfa' contained a misplacement of its cooling device for when argument 'smethod' is 'logistic'
-	- Now function correctly places its cooling device within the correct loop
+	- Now function places its cooling device within the correct loop
 
 ----------------
 
