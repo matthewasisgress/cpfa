@@ -9,6 +9,7 @@ import(rda)
 import(xgboost)
 import(doParallel)
 import(doRNG)
+import(clue)
 
 S3method(print, tunecpfa)
 S3method(predict, tunecpfa)

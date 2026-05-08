@@ -1,15 +1,15 @@
 Package: cpfa
 Type: Package
 Title: Classification with Parallel Factor Analysis
-Version: 1.2-9
-Date: 2026-05-08
+Version: 1.3
+Date: 2026-07-15
 Authors@R: person(given = c("Matthew", "A."), family = "Asisgress", 
                   email = "mattgress@protonmail.ch", role = c("aut", "cre"), 
                   comment = c(ORCID = "0000-0001-7294-3348"))
 Maintainer: Matthew A. Asisgress <mattgress@protonmail.ch>
 Depends: R (>= 4.3.0), multiway
 Imports: glmnet, e1071, randomForest, nnet, rda, xgboost, foreach, 
-    doParallel, doRNG
+    doParallel, doRNG, clue
 Suggests: knitr, rmarkdown
 Description: Classification using Richard A. Harshman's Parallel Factor 
     Analysis-1 (Parafac) model or Parallel Factor Analysis-2 (Parafac2) model fit to 
