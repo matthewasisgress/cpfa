@@ -18,7 +18,7 @@ Provides descriptive statistics to pool output across replications.
 }
 \usage{
 cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1, 
-     nrep = 5, ratio = 0.8, nfolds = 10, 
+     nrep = 5, ratio = 0.8, nfolds = 10, align = FALSE,
      method = c("PLR", "SVM", "RF", "NN", "RDA", "GBM"), 
      family = c("binomial", "multinomial"), parameters = list(), 
      type.out = c("measures", "descriptives"), foldid = NULL, prior = NULL, 
@@ -31,9 +31,9 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   A three-way or four-way data array. For Parafac2, can be a list where each 
   element is a matrix or three-way array. Array or list must contain only real 
   numbers. See note below. For PCA, can be a two-way matrix, a three-way array,
-  or a four-way array. If a three-way or four-way array for PCA, array is 
-  unfolded across all modes except the classification mode. Note that if 
-  three-way or four-way array for PCA, classification mode must be the last 
+  or a four-way array. If a three-way or four-way array is provided for PCA, 
+  array is unfolded across all modes except the classification mode. Note that 
+  if a three-way or four-way array for PCA, classification mode must be the last 
   mode.
 } 
 \item{y}{
@@ -67,6 +67,17 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 \item{nfolds}{
   Numeric value specifying number of folds for k-fold cross-validation. Must 
   be 2 or greater. Default is \code{nfolds = 10}.
+}
+\item{align}{
+  Logical value indicating whether to solve the permutation (order) 
+  indeterminacy for Parafac or Parafac2 models fit across train-test splits. 
+  Uses Tucker congruence coefficients to compare model weights across splits, 
+  and uses the Hungarian algorithm to identify the order that matches best. 
+  Implements the algorithm through the function \code{solve_LSAP} from the 
+  \bold{clue} package. Finds the best target model among all splits, and aligns 
+  other models to that target. Repeats for each value in \code{nfac}. If 
+  \code{TRUE}, only performs permutation alignment for \code{nfac} values of 2 
+  or more.
 }
 \item{method}{
   Character vector indicating classification methods to use. Possible methods 
@@ -367,6 +378,35 @@ replication.
     matrix. Only TRUE when \code{model} was \code{pca} and input \code{x} was
     a 3-way or 4-way array.
   }
+  \item{targetmod}{
+    If argument \code{align = TRUE}, a vector containing the identified target
+    Parafac or Parafac2 model (split), for each \code{nfac} value greater than 
+    one, to which all other models were aligned. If \code{nfac} is 1, NA is
+    returned. If \code{align = FALSE}, returns NULL instead of a list.
+  }
+  \item{changeorders}{
+    List of length equal to the length of input \code{nfac}. Each element 
+    contains a matrix whose first column contains integers indicating the 
+    split/model that was aligned (excludes the integer indicating the target
+    split/model). Thus, for \code{nrep} splits, each matrix has \code{nrep - 1}
+    rows. Subsequent columns contain the order identified by the Hungarian
+    algorithm to match a given model to the target. Thus, for any given 
+    \code{nfac} value, each matrix has \code{nfac + 1} columns. If \code{nfac} 
+    is 1, returns NULL instead of a matrix. If \code{align = FALSE}, returns 
+    NULL instead of a list.
+  }
+  \item{tccb}{
+    List of length equal to the length of input \code{nfac}. Each element 
+    contains a matrix whose first column contains integers indicating the 
+    split/model that was aligned (excludes the integer indicating the target
+    split/model). Thus, for \code{nrep} splits, each matrix has \code{nrep - 1}
+    rows. Subsequent columns contain Tucker congruence coefficients between
+    a given split/model and the target model for each component for the 
+    B mode (second mode) weights. Thus, for any given \code{nfac} value, each 
+    matrix has \code{nfac + 1} columns. If \code{nfac} is 1, returns NULL 
+    instead of a matrix. If \code{align = FALSE}, returns NULL instead of a 
+    list.
+  }
 }
 \note{
 For Parafac and Parafac2, if argument \code{cmode} is not null, input array 
@@ -446,6 +486,11 @@ via Parafac2 with functional and structural constraints. Biometrical Journal,
 
 Helwig, N. (2025). multiway: Component models for multi-way data. R Package 
 Version 1.0-7.
+
+Hornik, K. (2005). A CLUE for CLUster ensembles. Journal of Statistical 
+Software, 14, 1-25.
+
+Hornik, K. (2026). clue: Cluster ensembles. R Package Version 0.3-68.
 
 Liaw, A. and Wiener, M. (2002). Classification and regression by randomForest. 
 R News 2(3), 18--22.

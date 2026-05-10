@@ -643,6 +643,11 @@ via Parafac2 with functional and structural constraints. Biometrical Journal,
 Helwig, N. (2025). multiway: Component models for multi-way data. R Package 
 Version 1.0-7.
 
+Hornik, K. (2005). A CLUE for CLUster ensembles. Journal of Statistical 
+Software, 14, 1-25.
+
+Hornik, K. (2026). clue: Cluster ensembles. R Package Version 0.3-68.
+
 Liaw, A. and Wiener, M. (2002). Classification and regression by randomForest. 
 R News 2(3), 18-22.
 

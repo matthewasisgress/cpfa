@@ -1,6 +1,6 @@
 cpfa <-
   function(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
-           nrep = 5, ratio = 0.8, nfolds = 10,
+           nrep = 5, ratio = 0.8, nfolds = 10, align = FALSE,
            method = c("PLR", "SVM", "RF", "NN", "RDA", "GBM"),
            family = c("binomial", "multinomial"), parameters = list(),
            type.out = c("measures", "descriptives"), foldid = NULL,
@@ -265,7 +265,13 @@ cpfa <-
              ceiling(nobs * ratio).")
       }
     }
-    logicheck(plot.out)
+    logicheck(plot.out); logicheck(align)
+    if ((align == TRUE) && (model == "pca")) {
+      warning("Input 'align' was set to 'TRUE' while input 'model' was 'pca'. \n
+              However, permutation alignment is only implemented for Parafac \n 
+              or Parafac2. Thus, alignment was not implemented.")
+      align <- FALSE
+    }
     if (plot.out) {
       if (is.null(plot.measures)) {
         plottype <- 5
@@ -397,8 +403,19 @@ cpfa <-
                        lxdim = lxdim, trainIDs = trainIDs, testIDs = testIDs,
                        flattened = flattened)
       class(cpfalist) <- "wrapcpfa"
+      if (align == TRUE) {
+        paligned <- postalign(cpfalist)
+        cpfalist <- paligned$object
+        cpfalist$targetmod <- paligned$targetmod
+        cpfalist$changeorders <- paligned$changeorders
+        cpfalist$tccb <- paligned$tccb
+      } else {
+        cpfalist$targetmod <- NULL
+        cpfalist$changeorders <- NULL
+        cpfalist$tccb <- NULL
+      }
       return(cpfalist)                              
-    } else {
+    } else { 
       dfun <- c("mean", "median", "sd")
       output <- vector(mode = "list", length = length(dfun))
       for (j in seq_along(dfun)) {
@@ -417,6 +434,17 @@ cpfa <-
                        lxdim = lxdim, trainIDs = trainIDs, testIDs = testIDs,
                        flattened = flattened)
       class(cpfalist) <- "wrapcpfa"
+      if (align == TRUE) {
+        paligned <- postalign(cpfalist)
+        cpfalist <- paligned$object
+        cpfalist$targetmod <- paligned$targetmod
+        cpfalist$changeorders <- paligned$changeorders
+        cpfalist$tccb <- paligned$tccb
+      } else {
+        cpfalist$targetmod <- NULL
+        cpfalist$changeorders <- NULL
+        cpfalist$tccb <- NULL
+      }
       return(cpfalist)
     }
 }

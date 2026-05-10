@@ -8,11 +8,7 @@ Changes: version 1.3  (2026-07-15)
 	- Previously package function 'cpfa' did not provide a method to calculate feature importance
 	- Now 'cpfa' calculates permutation feature importance and conditional variants for comparison of components and additional features
 
-3.) Added option to calculate a soft voting ensemble of all selected classifiers
-	- Previously package function 'cpfa' did not contain an ensemble method for pooling classifiers
-	- Now 'cpfa' contains a soft voting ensemble option for classifiers selected
-
-4.) Fixed bug in function 'simcpfa'
+3.) Fixed bug in function 'simcpfa'
 	- Previously function 'simcpfa' contained a misplacement of its cooling device for when argument 'smethod' is 'logistic'
 	- Now function places its cooling device within the correct loop
 
