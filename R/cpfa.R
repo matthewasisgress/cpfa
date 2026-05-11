@@ -401,7 +401,8 @@ cpfa <-
                        nfac = nfac, model = model, method = method,
                        const = mconst, cmode = cmode0, family = family, 
                        lxdim = lxdim, trainIDs = trainIDs, testIDs = testIDs,
-                       flattened = flattened)
+                       flattened = flattened, targetmod = NULL, 
+                       changeorders = NULL, tccb = NULL)
       class(cpfalist) <- "wrapcpfa"
       if (align == TRUE) {
         paligned <- postalign(cpfalist)
@@ -409,10 +410,6 @@ cpfa <-
         cpfalist$targetmod <- paligned$targetmod
         cpfalist$changeorders <- paligned$changeorders
         cpfalist$tccb <- paligned$tccb
-      } else {
-        cpfalist$targetmod <- NULL
-        cpfalist$changeorders <- NULL
-        cpfalist$tccb <- NULL
       }
       return(cpfalist)                              
     } else { 
@@ -432,7 +429,8 @@ cpfa <-
                        nfac = nfac, model = model, method = method,
                        const = mconst, cmode = cmode0, family = family, 
                        lxdim = lxdim, trainIDs = trainIDs, testIDs = testIDs,
-                       flattened = flattened)
+                       flattened = flattened, targetmod = NULL, 
+                       changeorders = NULL, tccb = NULL)
       class(cpfalist) <- "wrapcpfa"
       if (align == TRUE) {
         paligned <- postalign(cpfalist)
@@ -440,11 +438,7 @@ cpfa <-
         cpfalist$targetmod <- paligned$targetmod
         cpfalist$changeorders <- paligned$changeorders
         cpfalist$tccb <- paligned$tccb
-      } else {
-        cpfalist$targetmod <- NULL
-        cpfalist$changeorders <- NULL
-        cpfalist$tccb <- NULL
-      }
+      } 
       return(cpfalist)
     }
 }
