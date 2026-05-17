@@ -1,8 +1,9 @@
 # under construction - last modified 2026-05-17
 importance <- 
   function(object, nshuffles = 10, type = c("marginal", "conditional"), 
-           conditional.model = c("ridge"), ridge.lambda = 1e-4, cpm.val = "acc", 
-           safealign = FALSE, safealign.stat = c("min", "mean", "median"), 
+           conditional.model = c("ridge"), ridge.lambda = 1e-4, 
+           cmeasure = "acc", safealign = FALSE, 
+           safealign.stat = c("min", "mean", "median"), 
            safealign.threshold = 0.9) 
 {
   opt.model <- object$opt.model
@@ -23,10 +24,35 @@ importance <-
   tccb <- object$tccb
   storrows <- length(object$testIDs[[1]])
   threshold <- 0.5
-  
-  # importance checks
+  if ((!(ceiling(nshuffles) == nshuffles)) || (nshuffles < 1)) {
+    stop("Input 'nshuffles' must be an integer greater than 0.")
+  }
+  type <- match.arg(type)
+  if (type == "conditional") {
+    conditional.model <- match.arg(conditional.model)
+    numcheck(ridge.lambda)
+    if (ridge.lambda < 0) {
+      stop("Input 'ridge.lambda' cannot be a negative number.")
+    }
+  }
+  cmeasures <- c("err", "acc", "tpr", "fpr", "tnr", "fnr", "ppv", "npv", 
+                 "fdr", "fom", "fs")
+  cmeasure <- tolower(cmeasure)
+  ctype <- sum(cmeasures %in% cmeasure)
+  if (ctype != 1) {
+    stop("Input 'cmeasure' must contain a single acceptable value. See help \n
+           file for acceptable values.")
+  }
+  logicheck(safealign)
+  safealign.stat <- match.arg(safealign.stat)
+  numcheck(safealign.threshold)
+  if ((safealign.threshold <= 0) || (safealign.threshold >= 1)) {
+    stop("Input 'safealign.threshold' must be between 0 and 1, exclusive.")
+  }
   
   # loop over nrep
+  # implement shuffle
+  # for conditional, implement ridge for residual shuffle
   
   storfac <- matrix(NA, nrow = storrows, ncol = lmethod * lnfac) 
   for (w in 1:lnfac) {

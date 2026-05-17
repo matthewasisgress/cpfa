@@ -4,9 +4,9 @@ Changes: version 1.3  (2026-07-15)
 	- Previously package did not provide a method for solving the permutation (order) indeterminacy across train-test splits in function 'cpfa'
 	- Now package uses Tucker congruence coefficients and the Hungarian algorithm to order components consistently across splits
 
-2.) Added option to calculate permutation feature importance and conditional variants
-	- Previously package function 'cpfa' did not provide a method to calculate feature importance
-	- Now 'cpfa' calculates permutation feature importance and conditional variants for comparison of components and additional features
+2.) Added function to calculate permutation feature importance and model-based residual permutation feature importance
+	- Previously package did not provide a method to calculate feature importance
+	- Now 'importance' calculates permutation feature importance and model-based residual importance using output from function 'cpfa'
 
 3.) Fixed bug in function 'simcpfa'
 	- Previously function 'simcpfa' contained a misplacement of its cooling device for when argument 'smethod' is 'logistic'
