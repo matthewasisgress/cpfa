@@ -414,9 +414,6 @@ cpfa <-
         cpfalist$tccb <- paligned$tccb
         cpfalist$aligned <- TRUE
       }
-      if (importance$pfi == TRUE) {
-        pfiout <- pfihelp()
-      }
       return(cpfalist)                              
     } else { 
       dfun <- c("mean", "median", "sd")
