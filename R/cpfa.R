@@ -290,7 +290,7 @@ cpfa <-
     nfac <- sort(nfac)
     stor <- array(0, dim = c(length(nfac) * length(method), 11, nrep))
     predstor <- Aw <- Bw <- Cw <- Pw <- vector(mode = "list", length = nrep)
-    trainIDs <- testIDs <- opara <- Tw <- predstor
+    trainIDs <- testIDs <- opara <- optmod <- Tw <- predstor
     cmode0 <- cmode
     if (cmode == lxdim) {cmode <- NULL}
     logicheck(verbose)
@@ -348,6 +348,7 @@ cpfa <-
       Pw[[i]] <- tcpfalist$Phi
       Tw[[i]] <- tcpfalist$train.weights
       opara[[i]] <- tcpfalist$opt.param
+      optmod[[i]] <- tcpfalist$opt.model
       yhat <- predict(object = tcpfalist, newdata = X.test, newdata.z = z.test, 
                       type = "response")           
       out <- cpm.all(x = yhat, y = y.test, level = levels(y))
@@ -397,12 +398,13 @@ cpfa <-
     if (type.out == "measures") {
       cpfalist <- list(measure = stor, predweights = predstor,
                        train.weights = train.weights, opt.tune = opara,
-                       mean.opt.tune = mean.tune.param, X = x, y = y, z = z,
-                       nfac = nfac, model = model, method = method,
-                       const = mconst, cmode = cmode0, family = family, 
-                       lxdim = lxdim, trainIDs = trainIDs, testIDs = testIDs,
-                       flattened = flattened, targetmod = NULL, 
-                       changeorders = NULL, tccb = NULL)
+                       opt.model = optmod, mean.opt.tune = mean.tune.param, 
+                       X = x, y = y, z = z, nfac = nfac, model = model, 
+                       method = method, const = mconst, cmode = cmode0, 
+                       family = family, lxdim = lxdim, trainIDs = trainIDs, 
+                       testIDs = testIDs, flattened = flattened, 
+                       targetmod = NULL, changeorders = NULL, tccb = NULL,
+                       aligned = FALSE)
       class(cpfalist) <- "wrapcpfa"
       if (align == TRUE) {
         paligned <- postalign(cpfalist)
@@ -410,6 +412,10 @@ cpfa <-
         cpfalist$targetmod <- paligned$targetmod
         cpfalist$changeorders <- paligned$changeorders
         cpfalist$tccb <- paligned$tccb
+        cpfalist$aligned <- TRUE
+      }
+      if (importance$pfi == TRUE) {
+        pfiout <- pfihelp()
       }
       return(cpfalist)                              
     } else { 
@@ -425,12 +431,13 @@ cpfa <-
       names(output) <- dfun  
       cpfalist <- list(descriptive = output, predweights = predstor,
                        train.weights = train.weights, opt.tune = opara,
-                       mean.opt.tune = mean.tune.param, X = x, y = y, z = z,
-                       nfac = nfac, model = model, method = method,
-                       const = mconst, cmode = cmode0, family = family, 
-                       lxdim = lxdim, trainIDs = trainIDs, testIDs = testIDs,
-                       flattened = flattened, targetmod = NULL, 
-                       changeorders = NULL, tccb = NULL)
+                       opt.model = optmod, mean.opt.tune = mean.tune.param, 
+                       X = x, y = y, z = z, nfac = nfac, model = model, 
+                       method = method, const = mconst, cmode = cmode0, 
+                       family = family, lxdim = lxdim, trainIDs = trainIDs, 
+                       testIDs = testIDs, flattened = flattened, 
+                       targetmod = NULL, changeorders = NULL, tccb = NULL,
+                       aligned = FALSE)
       class(cpfalist) <- "wrapcpfa"
       if (align == TRUE) {
         paligned <- postalign(cpfalist)
@@ -438,7 +445,8 @@ cpfa <-
         cpfalist$targetmod <- paligned$targetmod
         cpfalist$changeorders <- paligned$changeorders
         cpfalist$tccb <- paligned$tccb
-      } 
+        cpfalist$aligned <- TRUE
+      }
       return(cpfalist)
     }
 }

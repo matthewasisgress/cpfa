@@ -277,23 +277,8 @@ predict.tunecpfa <-
     }
     if (family == "multinomial") {
       if (!(is.null(threshold))) {
-        if (any(threshold < 0) || any(threshold > 1)) {
-          stop("Input 'threshold' must contain real numbers from 0 to 1 for
-             multiclass classification.")
-        }
-        if (sum(threshold) != 1) {
-          stop("Input 'threshold' must sum to 1 for multiclass classification.")
-        }
         warning("Argument 'threshold' is not currently implemented for 
                 multiclass classification.")
-      }
-      if ((is.null(threshold)) && (type == "response")) {
-        yt <- object$y
-        fraction <- table(yt) / length(yt)
-        threshold <- as.numeric(fraction)
-      }
-      if ((is.null(threshold)) && (type == "prob")) {
-        threshold <- 0.5
       }
     }
     stor.name <- NULL

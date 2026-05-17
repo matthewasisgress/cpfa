@@ -306,20 +306,24 @@ replication.
   descriptive statistics across replications. In addition, for either option, 
   the returned list object includes the following:
   \item{predweights}{
-    List of predicted classification weights for each Parafac, Parafac2, or PCA
-    model and for each replication.
+    List of predicted classification weights for each component model and for 
+    each replication.
   }
   \item{train.weights}{
-    List of lists of training weights for each Parafac, Parafac2, or PCA model 
-    and for each replication.
+    List of lists of training weights for each component model and for each 
+    replication.
   }
   \item{opt.tune}{
     List of optimal tuning parameters for classification methods for each 
-    Parafac or Parafac2 model and for each replication.
+    component model and for each replication.
+  }
+  \item{opt.model}{
+    List of optimal models for training classification methods for each 
+    component model and for each replication.
   }
   \item{mean.opt.tune}{
     Mean across all replications of optimal tuning parameters for 
-    classification methods for each Parafac or Parafac2 model. 
+    classification methods for each model. 
   }
   \item{X}{
     Two-way matrix, or three-way or four-way data array or list used in argument 
@@ -333,7 +337,7 @@ replication.
     Matrix of additional features used in input argument \code{z}.
   }
   \item{nfac}{
-    Number of components used to fit each Parafac, Parafac2, or PCA model.
+    Number of components used to fit each component model.
   }
   \item{model}{
     Character designating the component model that was used, including:
@@ -344,7 +348,7 @@ replication.
     Classification methods used.
   }
   \item{const}{
-    Constraints used in fitting the Parafac, Parafac2, or PCA model. When 
+    Constraints used in fitting the component model. When 
     \code{model} was \code{pca}, contains the value used in input \code{pcarot}
     to indicate whether a rotation was applied to the solution.
   }
@@ -406,6 +410,9 @@ replication.
     matrix has \code{nfac + 1} columns. If \code{nfac} is 1, returns NULL 
     instead of a matrix. If \code{align = FALSE}, returns NULL instead of a 
     list.
+  }
+  \item{aligned}{
+    Logical indicating whether input \code{align} was set to TRUE or FALSE.
   }
 }
 \note{
