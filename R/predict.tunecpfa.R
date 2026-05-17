@@ -632,7 +632,7 @@ predict.tunecpfa <-
     colnames(storfac) <- stor.name
     names(storprob) <- stor.name
     if (type == "classify.weights") {
-      classify.weight.names <- paste(nfac, "-component(s)", sep ="")
+      classify.weight.names <- paste(nfac, "-component(s)", sep = "")
       names(classify.weights) <- classify.weight.names
       return(classify.weights)
     } 
