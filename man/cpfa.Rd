@@ -271,20 +271,21 @@ for function \code{cv.glmnet} in package \bold{glmnet}). For SVM, package
 radial basis parameter gamma are used (see \code{svm} in package \bold{e1071}). 
 For RF, package \bold{randomForest} is used and implements Breiman's random 
 forest algorithm. The number of predictors sampled at each node split is set 
-at the default of sqrt(R), where R is the number of Parafac or Parafac2 
-components. Two tuning parameters allowed are ntree, the number of trees to be 
-grown, and nodesize, the minimum size of terminal nodes (see 
-\code{randomForest} in package \bold{randomForest}). For NN, package 
-\bold{nnet} fits a single-hidden-layer, feed-forward neural network model. 
-Penalty parameters size (i.e., number of hidden layer units) and decay (i.e., 
-weight decay) are used (see \bold{nnet}). For RDA, package \bold{rda} fits a 
-shrunken centroids regularized discriminant analysis model. Tuning parameters 
-include rda.alpha, the shrinkage penalty for the within-class covariance matrix, 
-and delta, the shrinkage penalty of class centroids towards the overall dataset 
-centroid. For GBM, package \bold{xgboost} fits a gradient boosting machine 
-model. Four tuning parameters are allowed: (1) eta, the learning rate; (2) 
-max.depth, the maximum tree depth; (3) subsample, the fraction of samples per 
-tree; and (4) nrounds, the number of boosting trees to build.
+at the default of sqrt(R), where R is the number of model components plus the 
+number of additional features from argument \code{z}. Two tuning parameters 
+allowed are ntree, the number of trees to be grown, and nodesize, the minimum 
+size of terminal nodes (see \code{randomForest} in package \bold{randomForest}). 
+For NN, package \bold{nnet} fits a single-hidden-layer, feed-forward neural 
+network model. Penalty parameters size (i.e., number of hidden layer units) and 
+decay (i.e., weight decay) are used (see \bold{nnet}). For RDA, package 
+\bold{rda} fits a shrunken centroids regularized discriminant analysis model. 
+Tuning parameters include rda.alpha, the shrinkage penalty for the within-class 
+covariance matrix, and delta, the shrinkage penalty of class centroids towards 
+the overall dataset centroid. For GBM, package \bold{xgboost} fits a gradient 
+boosting machine model. Four tuning parameters are allowed: (1) eta, the 
+learning rate; (2) max.depth, the maximum tree depth; (3) subsample, the 
+fraction of samples per tree; and (4) nrounds, the number of boosting trees to 
+build.
 
 For all six methods, k-fold cross-validation is implemented to tune 
 classification parameters where the number of folds is set by argument 
