@@ -1,4 +1,4 @@
-Changes: version 1.3-0  (2026-07-15)
+Changes: version 1.3.0  (2026-07-15)
 
 1.) Added option to solve permutation (order) indeterminacy in Parafac and Parafac2 models
 	- Previously package did not provide a method for solving the permutation (order) indeterminacy across train-test splits in function 'cpfa'

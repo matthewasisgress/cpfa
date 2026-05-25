@@ -1,7 +1,7 @@
 Package: cpfa
 Type: Package
 Title: Classification with Parallel Factor Analysis
-Version: 1.3-0
+Version: 1.3.0
 Date: 2026-07-15
 Authors@R: person(given = c("Matthew", "A."), family = "Asisgress", 
                   email = "mattgress@protonmail.ch", role = c("aut", "cre"), 

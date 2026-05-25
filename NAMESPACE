@@ -21,6 +21,6 @@ importFrom(stats, "dnorm", "qlogis", "qnorm", "quantile", "median")
 importFrom(utils, "combn")
 importFrom("graphics", "axis", "image", "layout", "mtext", "par", "boxplot", "box", "text")
 importFrom(parallel, "makeCluster", "detectCores", "clusterEvalQ", "stopCluster", "clusterSetRNGStream")
-importFrom(doParallel, "registerDoParallel")
-importFrom(foreach, "%do%", "%dopar%", "foreach")
 importFrom("grDevices", "colorRampPalette", "devAskNewPage")
+
+importFrom(foreach, "%do%", "%dopar%", "foreach")
