@@ -220,16 +220,13 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   file for function \code{cpm}. If NULL, defaults to classification accuracy.
 }
 \item{parallel}{
-  Logical indicating if parallel computing should be implemented. If TRUE, the 
-  package \bold{parallel} is used for parallel computing. For all classification 
-  methods except penalized logistic regression, the \bold{doParallel} package 
-  is used as a wrapper. Defaults to FALSE, which implements sequential 
-  computing.
+  Logical indicating if parallel computing should be implemented. Defaults to 
+  FALSE, which implements sequential computing.
 }
 \item{cl}{
   Cluster for parallel computing, which is used when \code{parallel = TRUE}. 
   Note that if \code{parallel = TRUE} and \code{cl = NULL}, then the cluster 
-  is defined as \code{makeCluster(detectCores())}.
+  is defined as \code{makeCluster(max(1L, detectCores() - 1L))}.
 }
 \item{verbose}{
   If TRUE, progress is printed.

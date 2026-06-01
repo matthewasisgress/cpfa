@@ -296,7 +296,7 @@ cpfa <-
     logicheck(verbose)
     ccreated <- FALSE
     if ((parallel == TRUE) && (is.null(cl))) {
-      cl <- makeCluster(detectCores())
+      cl <- makeCluster(max(1L, detectCores() - 1L))
       ccreated <- TRUE
       registerDoParallel(cl)
       clusterEvalQ(cl, library(multiway))
