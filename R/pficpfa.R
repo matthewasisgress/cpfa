@@ -30,6 +30,7 @@ pficpfa <-
   if ((!(ceiling(nshuffles) == nshuffles)) || (nshuffles < 1)) {
     stop("Input 'nshuffles' must be an integer greater than 0.")
   }
+  numcheck(nshuffles)
   type <- match.arg(type, c("marginal", "conditional"))
   if (type == "conditional") {
     conditional.model <- match.arg(conditional.model, c("ridge", "rf"))
@@ -57,6 +58,7 @@ pficpfa <-
   }
   if (safealign == TRUE) {
     statf <- match.fun(safealign.stat)
+    ######################################################################################## in progress
     goodreps <- lapply(seq_along(object$tccb), function(w) {
                      x <- object$tccb[[w]] 
                      if (is.null(x)) return(seq_len(nrep)) 
@@ -65,6 +67,7 @@ pficpfa <-
                      tmod <- object$targetmod[w] 
                      if (!(is.na(tmod))) passed <- union(passed, tmod) 
                      sort(passed)})
+    ######################################################################################## in progress
     goodlengths <- calcflags <- numeric(lnfac)
     for (hh in 1:lnfac) {
        cglength <- length(goodreps[[hh]])
@@ -116,6 +119,7 @@ pficpfa <-
   ppac <- c("cpfa", "glmnet", "e1071", "randomForest", "nnet", "rda", "xgboost")
   for (i in 1:nrep) {
      opt.model <- opt.model.all[[i]]
+     opt.param.i <- opt.param[[i]]
      ytrain <- object$y[object$trainIDs[[i]]]
      ylab <- object$y[object$testIDs[[i]]]
      facstor <- vector(mode = "list", length = length(nfacseq))
@@ -126,8 +130,8 @@ pficpfa <-
         preds <- imphelper(w = w, method = method, opt.model = opt.model,
                            C.pred = C.pred, nfac = nfac, threshold = threshold, 
                            storrows = storrows, family = family, y = y,
-                           ytrain = ytrain, ylab = ylab, opt.param = opt.param, 
-                           train.weights = trainweight)
+                           ytrain = ytrain, ylab = ylab, 
+                           opt.param = opt.param.i, train.weights = trainweight)
         ground0 <- cpm.all(x = as.data.frame(preds), y = as.numeric(ylab) - 1)
         ground <- ground0$cpms
         flit <- vector(mode = "list", length = ncol(C.pred))
@@ -177,7 +181,7 @@ pficpfa <-
                                                    storrows = storrows, 
                                                    family = family, 
                                                    ytrain = ytrain, ylab = ylab, 
-                                                   opt.param = opt.param, 
+                                                   opt.param = opt.param.i, 
                                                    train.weights = trainweight)
                                 shufper0 <- cpm.all(x = as.data.frame(preds), 
                                                     y = as.numeric(ylab) - 1)
@@ -204,7 +208,7 @@ pficpfa <-
                                    nfac = nfac, y = y, threshold = threshold, 
                                    storrows = storrows, family = family, 
                                    ytrain = ytrain, ylab = ylab, 
-                                   opt.param = opt.param, 
+                                   opt.param = opt.param.i, 
                                    train.weights = trainweight)
                 shufper0 <- cpm.all(x = as.data.frame(preds), 
                                     y = as.numeric(ylab) - 1)
