@@ -130,9 +130,6 @@ Matthew A. Asisgress <mattgress@protonmail.ch>
 \references{
 Breiman, L. (2001). Random forests. Machine Learning, 45(1), 5-32.
 
-Freedman, D., and Lane, D. (1983). A nonstochastic interpretation of reported 
-significance levels. Journal of Business and Economic Statistics, 1(4), 292-298.
-
 Huang, P. (2025). Residual permutation tests for feature importance in machine 
 learning. British Journal of Mathematical and Statistical Psychology.
 

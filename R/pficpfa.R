@@ -58,35 +58,29 @@ pficpfa <-
   }
   if (safealign == TRUE) {
     statf <- match.fun(safealign.stat)
-    ######################################################################################## in progress
     goodreps <- lapply(seq_along(object$tccb), function(w) {
-                     x <- object$tccb[[w]] 
-                     if (is.null(x)) return(seq_len(nrep)) 
-                     rowresults <- apply(x[, 2:ncol(x), drop = FALSE], 1, statf) 
-                     passed <- x[which(rowresults > safealign.threshold), 1] 
-                     tmod <- object$targetmod[w] 
-                     if (!(is.na(tmod))) passed <- union(passed, tmod) 
-                     sort(passed)})
-    ######################################################################################## in progress
+                  x <- object$tccb[[w]]
+                  if (is.null(x)) return(seq_len(nrep))
+                  rowresults <- apply(x[, 2:ncol(x), drop = FALSE], 1, statf)
+                  sort(x[which(rowresults > safealign.threshold), 1])})
     goodlengths <- calcflags <- numeric(lnfac)
     for (hh in 1:lnfac) {
        cglength <- length(goodreps[[hh]])
        goodlengths[hh] <- cglength
        if (cglength == 0) {
-         warning(paste0("Input 'safealign' was TRUE. For the current values \n
-                        of 'safealign.stat' and 'safealign.threshold', there \n 
-                        is no useable replication for the component model \n
-                        with ", nfac[hh], " components. As such, feature \n 
-                        importance was not calculated for this component \n
-                        model."))
          calcflags[hh] <- 1
        } else {
          calcflags[hh] <- 0
        }
     }
     remover <- as.logical(calcflags)
+    aggreps <- lapply(seq_along(goodreps), function(w) {
+                  gr <- goodreps[[w]]
+                  tmod <- object$targetmod[w]
+                  if (!(is.na(tmod))) gr <- sort(union(gr, tmod)); gr})
   } else {
     remover <- as.logical(numeric(lnfac))
+    aggreps <- rep(list(seq_len(nrep)), lnfac)
   }
   logicheck(parallel)
   nfeat <- NULL
@@ -98,6 +92,16 @@ pficpfa <-
          'safealign.stat' and 'safealign.threshold', there is no useable \n 
          replication for any component model. As such, feature importance \n 
          could not be calculated for any component model.")
+  }
+  for (hh in 1:lnfac) {
+     currcalcflag <- calcflags[hh]
+     if (currcalcflag == 1) {
+       warning(paste0("Input 'safealign' was TRUE. For the current values \n
+                      of 'safealign.stat' and 'safealign.threshold', there \n 
+                      is no useable replication for the component model \n
+                      with ", nfac[hh], " components. As such, feature \n 
+                      importance was not calculated for this component model."))
+     }
   }
   if ((type == "conditional") && (any(nfeat == 1L))) {
     warning("Input 'type' was set to 'conditional', but at least one \n
@@ -124,7 +128,7 @@ pficpfa <-
      ylab <- object$y[object$testIDs[[i]]]
      facstor <- vector(mode = "list", length = length(nfacseq))
      for (w in pnfacseq) {
-        if ((safealign == TRUE) && (!(i %in% goodreps[[w]]))) next
+        if ((safealign == TRUE) && (!(i %in% aggreps[[w]]))) next
         trainweight <- trweights[[i]][[w]]
         C.pred <- as.matrix(predstor[[i]][[w]])
         preds <- imphelper(w = w, method = method, opt.model = opt.model,
@@ -223,7 +227,7 @@ pficpfa <-
      repstor[[i]] <- facstor
   }
   if ((parallel == TRUE) && (ccluster == TRUE)) {stopCluster(cl)}
-  repbymod <- if (safealign) goodreps else rep(list(seq_len(nrep)), lnfac)
+  repbymod <- aggreps
   impstats <- vector("list", lnfac)
   for (w in pnfacseq) {
      greps <- intersect(repbymod[[w]], seq_len(nrep))
