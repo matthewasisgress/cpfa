@@ -2,7 +2,7 @@
 
 # *cpfa*: Classification with Parallel Factor Analysis <img src="cpfa-logo.png" height="139" align="right"/>
 
-Package **cpfa** implements a k-fold cross-validation procedure to predict class labels using component weights from a single mode of a Parallel Factor Analysis model-1 (Parafac; Harshman, 1970) or a Parallel Factor Analysis model-2 (Parafac2; Harshman, 1972), which is fit to a three-way or four-way data array. The package also supports principal component analysis (PCA) applied to a two-way data matrix. After fitting a Parafac or Parafac2 model with package **multiway** via an alternating least squares algorithm (Helwig, 2025), or after fitting a PCA model using the singular value decomposition, estimated component weights from one mode of the selected component model are passed to one or more classification methods. For each method, a k-fold cross-validation is conducted to tune classification parameters using estimated component weights, optimizing class label prediction. This process is repeated over multiple train-test splits in order to improve the generalizability of results. Multiple constraint options are available to impose on any mode of the Parafac or Parafac2 model during the estimation step (e.g., see Helwig, 2017). Multiple numbers of components can be considered in the primary package function `cpfa`. Additional features can be included alongside model-generated features to enhance classification.
+Package **cpfa** implements a k-fold cross-validation procedure to predict class labels using component weights from a single mode of a Parallel Factor Analysis model-1 (Parafac; Harshman, 1970) or a Parallel Factor Analysis model-2 (Parafac2; Harshman, 1972), which is fit to a three-way or four-way data array. The package also supports principal component analysis (PCA) applied to a two-way data matrix. After fitting a Parafac or Parafac2 model with package **multiway** via an alternating least squares algorithm (Helwig, 2025), or after fitting a PCA model using the singular value decomposition, estimated component weights from one mode of the selected component model are passed to one or more classification methods. For each method, a k-fold cross-validation is conducted to tune classification parameters using estimated component weights, optimizing class label prediction. This process is repeated over multiple train-test splits in order to improve the generalizability of results. Multiple constraint options are available to impose on any mode of the Parafac or Parafac2 model during the estimation step (e.g., see Helwig, 2017). Multiple numbers of components can be considered in the primary package function `cpfa`. Additional features can be included alongside model-generated features to enhance classification. Permutation feature importance can be calculated to facilitate comparisons among features.
 
 # License
 
@@ -10,7 +10,7 @@ This package is free and open-source software. This package is licensed under [G
 
 # Bugs and Suggestions
 
-I'm grateful for all bug reports. Please feel free to share bug reports through 'issues'. If you have suggestions for improvements or for new features, those are always welcome. I'll work on addressing your suggestions as quickly as I can.
+I'm grateful for all bug reports. Please feel free to share bug reports through 'issues'. If you have suggestions for improvements or for new features, those are always welcome. I'll work on addressing your reports and suggestions as quickly as I can.
 
 # References
 
