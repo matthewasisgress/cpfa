@@ -75,9 +75,8 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   and uses the Hungarian algorithm to identify the order that matches best. 
   Implements the algorithm through the function \code{solve_LSAP} from the 
   \bold{clue} package. Finds the best target model among all splits, and aligns 
-  other models to that target. Repeats for each value in \code{nfac}. If 
-  \code{TRUE}, only performs permutation alignment for \code{nfac} values of 2 
-  or more.
+  other models to that target. Repeats for each value in \code{nfac}. Only 
+  performs permutation alignment for \code{nfac} values of 2 or more.
 }
 \item{method}{
   Character vector indicating classification methods to use. Possible methods 
@@ -452,6 +451,9 @@ Breiman, L. (2001). Random forests. Machine Learning, 45(1), 5-32.
 Chen, T., He, T., Benesty, M., Khotilovich, V., Tang, Y., Cho, H., Chen, K., 
 Mitchell, R., Cano, I., Zhou, T., Li, M., Xie, J., Lin, M., Geng, Y., Li, Y., 
 Yuan, J. (2025). xgboost: Extreme gradient boosting. R Package Version 1.7.9.1.
+
+Corporation, M. and Weston S (2022). doParallel: foreach parallel adaptor for 
+the 'parallel' package. R Package Version 1.0.17.
 
 Cortes, C. and Vapnik, V. (1995). Support-vector networks. Machine Learning, 
 20(3), 273-297.

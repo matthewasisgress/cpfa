@@ -22,5 +22,4 @@ importFrom(utils, "combn")
 importFrom("graphics", "axis", "image", "layout", "mtext", "par", "boxplot", "box", "text")
 importFrom(parallel, "makeCluster", "detectCores", "clusterEvalQ", "stopCluster", "clusterSetRNGStream")
 importFrom("grDevices", "colorRampPalette", "devAskNewPage")
-
 importFrom(foreach, "%do%", "%dopar%", "foreach")

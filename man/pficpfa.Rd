@@ -91,21 +91,21 @@ pficpfa(object, nshuffles = 10, type = c("marginal", "conditional"),
   classification performance via permutation feature importance (PFI). The 
   function requires a \code{'wrapcpfa'} object from the function \code{cpfa} 
   where argument \code{align = TRUE}. For each replication and component model, 
-  the predicted weight matrix (components first, then features from argument 
-  \code{z} in \code{cpfa}) serves as features. Each feature is permuted 
-  \code{nshuffles} times; the importance is the resulting change in each 
-  performance measure, averaged over permutations. When 
+  the predicted weight matrix (consisting of components first, then features 
+  from argument \code{z} in \code{cpfa}) contains the features. Each feature is 
+  permuted \code{nshuffles} times; the importance is the resulting change in 
+  each performance measure, averaged over permutations. When 
   \code{type = "marginal"}, the feature is permuted directly, corresponding to 
   the feature importance of Breiman (2001). When \code{type = "conditional"}, a 
   conditioning model (ridge regression or random forest) predicts the feature 
-  from the others; and its residuals are permuted and added back to the fitted 
-  values, preserving the feature's dependence on the others (for more 
-  information, see Huang, 2025; Freedman and Lane, 1983; and O'Gorman, 2005). 
-  When \code{safealign = TRUE}, replications are screened per component model 
+  from the others; and the model's residuals are permuted and added back to the 
+  fitted values, preserving the feature's dependence on other features (for more 
+  information, see Huang, 2025, and O'Gorman, 2005). When 
+  \code{safealign = TRUE}, replications are screened per component model 
   using the Tucker congruence coefficients in \code{object$tccb}: replications
   whose \code{safealign.stat} value does not exceed \code{safealign.threshold} 
-  are excluded. Computation runs sequentially or, when \code{parallel = TRUE}, 
-  in parallel.
+  are excluded. When \code{parallel = TRUE}, parallel computing is used; 
+  otherwise, sequential computing is used.
 }
 \value{
   Returns a data frame containing the following nine variables: (1) nfac, a 

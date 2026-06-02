@@ -394,6 +394,9 @@ Chen, T., He, T., Benesty, M., Khotilovich, V., Tang, Y., Cho, H., Chen, K.,
 Mitchell, R., Cano, I., Zhou, T., Li, M., Xie, J., Lin, M., Geng, Y., Li, Y., 
 Yuan, J. (2025). xgboost: Extreme gradient boosting. R Package Version 1.7.9.1.
 
+Corporation, M. and Weston S (2022). doParallel: foreach parallel adaptor for 
+the 'parallel' package. R Package Version 1.0.17.
+
 Cortes, C. and Vapnik, V. (1995). Support-vector networks. Machine Learning, 
 20(3), 273-297.
 

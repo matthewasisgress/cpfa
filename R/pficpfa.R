@@ -57,10 +57,14 @@ pficpfa <-
   }
   if (safealign == TRUE) {
     statf <- match.fun(safealign.stat)
-    goodreps <- lapply(object$tccb, function(x) {
-                       rowresults <- apply(x[, 2:ncol(x), 
-                                             drop = FALSE], 1, statf)
-                       x[which(rowresults > safealign.threshold), 1]})
+    goodreps <- lapply(seq_along(object$tccb), function(w) {
+                     x <- object$tccb[[w]] 
+                     if (is.null(x)) return(seq_len(nrep)) 
+                     rowresults <- apply(x[, 2:ncol(x), drop = FALSE], 1, statf) 
+                     passed <- x[which(rowresults > safealign.threshold), 1] 
+                     tmod <- object$targetmod[w] 
+                     if (!(is.na(tmod))) passed <- union(passed, tmod) 
+                     sort(passed)})
     goodlengths <- calcflags <- numeric(lnfac)
     for (hh in 1:lnfac) {
        cglength <- length(goodreps[[hh]])
