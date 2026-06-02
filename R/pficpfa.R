@@ -94,8 +94,7 @@ pficpfa <-
          could not be calculated for any component model.")
   }
   for (hh in 1:lnfac) {
-     currcalcflag <- calcflags[hh]
-     if (currcalcflag == 1) {
+     if (remover[hh] == TRUE) {
        warning(paste0("Input 'safealign' was TRUE. For the current values \n
                       of 'safealign.stat' and 'safealign.threshold', there \n 
                       is no useable replication for the component model \n
