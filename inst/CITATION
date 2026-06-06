@@ -1,0 +1,10 @@
+citHeader("To cite cpfa in publications, use:")
+
+bibentry(
+  bibtype = "Manual",
+  title   = "{cpfa}: Classification with Parallel Factor Analysis",
+  author  = person("Matthew", "A. Asisgress"),
+  year    = "2026",
+  note    = sprintf("R package version %s", meta$Version),
+  url     = "https://CRAN.R-project.org/package=cpfa"
+)
