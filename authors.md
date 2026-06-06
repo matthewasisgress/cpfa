@@ -8,16 +8,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/matthewasisgress/cpfa/blob/main/DESCRIPTION)
+[`inst/CITATION`](https://github.com/matthewasisgress/cpfa/blob/main/inst/CITATION)
 
-Asisgress MA (2026). *cpfa: Classification with Parallel Factor
+A. Asisgress M (2026). *cpfa: Classification with Parallel Factor
 Analysis*. R package version 1.3.0,
-<https://github.com/matthewasisgress/cpfa>.
+<https://CRAN.R-project.org/package=cpfa>.
 
     @Manual{,
-      title = {cpfa: Classification with Parallel Factor Analysis},
-      author = {Matthew A. Asisgress},
+      title = {{cpfa}: Classification with Parallel Factor Analysis},
+      author = {Matthew {A. Asisgress}},
       year = {2026},
       note = {R package version 1.3.0},
-      url = {https://github.com/matthewasisgress/cpfa},
+      url = {https://CRAN.R-project.org/package=cpfa},
     }

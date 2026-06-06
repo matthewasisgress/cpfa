@@ -1,4 +1,4 @@
-# *cpfa*: Classification with Parallel Factor Analysis ![](cpfa-logo.png)
+# *cpfa*: Classification with Parallel Factor Analysis
 
 Package **cpfa** implements a k-fold cross-validation procedure to
 predict class labels using component weights from a single mode of a
