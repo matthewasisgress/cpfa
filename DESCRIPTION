@@ -31,7 +31,7 @@ Description: Classification using Richard A. Harshman's Parallel Factor
     'doParallel', and 'doRNG' packages.
 BugReports: https://github.com/matthewasisgress/cpfa/issues
 License: GPL (>= 2)
-URL: https://github.com/matthewasisgress/cpfa
+URL: https://github.com/matthewasisgress/cpfa, https://matthewasisgress.github.io/cpfa/
 VignetteBuilder: knitr, rmarkdown
 Encoding: UTF-8
 NeedsCompilation: no
