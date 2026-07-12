@@ -11,13 +11,13 @@ Source:
 [`inst/CITATION`](https://github.com/matthewasisgress/cpfa/blob/main/inst/CITATION)
 
 Asisgress M (2026). *cpfa: Classification with Parallel Factor
-Analysis*. R package version 1.3.0,
+Analysis*. R package version 1.3.1,
 <https://CRAN.R-project.org/package=cpfa>.
 
     @Manual{,
       title = {cpfa: Classification with Parallel Factor Analysis},
       author = {Matthew Asisgress},
       year = {2026},
-      note = {R package version 1.3.0},
+      note = {R package version 1.3.1},
       url = {https://CRAN.R-project.org/package=cpfa},
     }

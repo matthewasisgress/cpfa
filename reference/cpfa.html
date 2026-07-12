@@ -27,7 +27,7 @@ Provides descriptive statistics to pool output across replications."><meta prope
 
     <a class="navbar-brand me-2" href="../index.html">cpfa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -376,7 +376,8 @@ replication.</p>
 
   <dt>opt.model</dt>
 <dd><p>List of optimal models for training classification methods for each
-    component model and for each replication.</p></dd>
+    component model and for each replication. Note that when
+    <code>align = TRUE</code>, component order in <code>opt.model</code> is not changed.</p></dd>
 
   <dt>mean.opt.tune</dt>
 <dd><p>Mean across all replications of optimal tuning parameters for
@@ -492,7 +493,7 @@ matrix, the matrix is reshaped if <code>cmode</code> is 2, such that the matrix 
 transposed. Note that for PCA, <code>Aweights</code> contains the PCA model loadings.</p>
 <p>In addition, note that the following combination of arguments will give an
 error: <code>nfac = 1, family = "multinomial", method = "PLR"</code>. The issue
-arises from providing <code><a href="https://rdrr.io/pkg/glmnet/man/cv.glmnet.html" class="external-link">glmnet::cv.glmnet</a></code> input <code>x</code> an input matrix
+arises from providing <code><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html" class="external-link">glmnet::cv.glmnet</a></code> input <code>x</code> an input matrix
 that has a single column. The issue is resolved for <code>family = "binomial"</code>
 because a column of 0s is appended to the single column, but this solution
 does not appear to work for the multiclass case. As such, this combination of
@@ -631,7 +632,7 @@ Methodology), 67(2), 301-320.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

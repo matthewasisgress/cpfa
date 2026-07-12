@@ -369,7 +369,8 @@ option, the returned list object includes the following:
 - opt.model:
 
   List of optimal models for training classification methods for each
-  component model and for each replication.
+  component model and for each replication. Note that when
+  `align = TRUE`, component order in `opt.model` is not changed.
 
 - mean.opt.tune:
 
@@ -504,7 +505,7 @@ loadings.
 In addition, note that the following combination of arguments will give
 an error: `nfac = 1, family = "multinomial", method = "PLR"`. The issue
 arises from providing
-[`glmnet::cv.glmnet`](https://rdrr.io/pkg/glmnet/man/cv.glmnet.html)
+[`glmnet::cv.glmnet`](https://glmnet.stanford.edu/reference/cv.glmnet.html)
 input `x` an input matrix that has a single column. The issue is
 resolved for `family = "binomial"` because a column of 0s is appended to
 the single column, but this solution does not appear to work for the
