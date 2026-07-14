@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/matthewasisgress/cpfa/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/matthewasisgress/cpfa/blob/v1.3.1/inst/CITATION)
 
 Asisgress M (2026). *cpfa: Classification with Parallel Factor
 Analysis*. R package version 1.3.1,
