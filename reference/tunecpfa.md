@@ -103,8 +103,8 @@ tunecpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   gamma
 
   :   Values for support vector machine gamma parameter; default is
-      `gamma = c(0, 0.01, 0.1, 1, 10, 100, 1000)`. Must be numeric and
-      greater than or equal to 0.
+      `gamma = c(0.00001, 0.01, 0.1, 1, 10, 100, 1000)`. Must be numeric
+      and greater than or equal to 0.
 
   ntree
 

@@ -27,7 +27,7 @@ Provides descriptive statistics to pool output across replications."><meta prope
 
     <a class="navbar-brand me-2" href="../index.html">cpfa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@ Provides descriptive statistics to pool output across replications.</p>
 <span>     type.out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"measures"</span>, <span class="st">"descriptives"</span><span class="op">)</span>, foldid <span class="op">=</span> <span class="cn">NULL</span>, prior <span class="op">=</span> <span class="cn">NULL</span>, </span>
 <span>     cmode <span class="op">=</span> <span class="cn">NULL</span>, seeds <span class="op">=</span> <span class="cn">NULL</span>, plot.out <span class="op">=</span> <span class="cn">FALSE</span>, plot.measures <span class="op">=</span> <span class="cn">NULL</span>, </span>
 <span>     parallel <span class="op">=</span> <span class="cn">FALSE</span>, cl <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, compscale <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>     pcarot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unrotated"</span>, <span class="st">"varimax"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>     pcarot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unrotated"</span>, <span class="st">"varimax"</span><span class="op">)</span>, light <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -171,8 +171,8 @@ Provides descriptive statistics to pool output across replications.</p>
 
 <dt>gamma</dt>
 <dd><p>Values for support vector machine gamma parameter; default is
-  <code>gamma = c(0, 0.01, 0.1, 1, 10, 100, 1000)</code>. Must be numeric and greater
-  than or equal to 0.</p></dd>
+  <code>gamma = c(0.00001, 0.01, 0.1, 1, 10, 100, 1000)</code>. Must be numeric and
+  greater than or equal to 0.</p></dd>
 
 <dt>ntree</dt>
 <dd><p>Values for random forest number of trees parameter; default is
@@ -266,7 +266,7 @@ Provides descriptive statistics to pool output across replications.</p>
 <dt id="arg-plot-out">plot.out<a class="anchor" aria-label="anchor" href="#arg-plot-out"></a></dt>
 <dd><p>Logical indicating whether to output one or more box plots of classification
   performance measures that are plotted across classification methods and
-  number of components.</p></dd>
+  the number of components. Defaults to <code>FALSE</code>.</p></dd>
 
 <dt id="arg-plot-measures">plot.measures<a class="anchor" aria-label="anchor" href="#arg-plot-measures"></a></dt>
 <dd><p>Character vector containing values that specify for plotting one or more of
@@ -280,7 +280,7 @@ Provides descriptive statistics to pool output across replications.</p>
 
 <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
 <dd><p>Logical indicating if parallel computing should be implemented. Defaults to
-  FALSE, which implements sequential computing.</p></dd>
+  <code>FALSE</code>, which implements sequential computing.</p></dd>
 
 <dt id="arg-cl">cl<a class="anchor" aria-label="anchor" href="#arg-cl"></a></dt>
 <dd><p>Cluster for parallel computing, which is used when <code>parallel = TRUE</code>.
@@ -288,18 +288,24 @@ Provides descriptive statistics to pool output across replications.</p>
   is defined as <code>makeCluster(max(1L, detectCores() - 1L))</code>.</p></dd>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>If TRUE, progress is printed.</p></dd>
+<dd><p>Logicial indicating whether to print progress. If <code>TRUE</code>, progress is
+  printed. If <code>FALSE</code>, progress is not printed. Defaults to <code>TRUE</code>.</p></dd>
 
 <dt id="arg-compscale">compscale<a class="anchor" aria-label="anchor" href="#arg-compscale"></a></dt>
 <dd><p>Logical indicating whether to scale each column of the estimated
   classification component weights matrix (i.e., the features/predictors). If
   <code>TRUE</code>, each column is scaled to have mean zero and unit variance. If
-  <code>FALSE</code>, no scaling is performed.</p></dd>
+  <code>FALSE</code>, no scaling is performed. Defaults to <code>TRUE</code>.</p></dd>
 
 <dt id="arg-pcarot">pcarot<a class="anchor" aria-label="anchor" href="#arg-pcarot"></a></dt>
 <dd><p>Character indicating whether to apply a varimax rotation or leave PCA loadings
   unrotated when <code>model</code> is set to <code>pca</code>. Ignored when <code>model</code> is
   not <code>pca</code>. Defaults to <code>"unrotated"</code> if not specified.</p></dd>
+
+<dt id="arg-light">light<a class="anchor" aria-label="anchor" href="#arg-light"></a></dt>
+<dd><p>Logical indicating whether to exclude input <code>x</code> in the output object of
+  class <code>wrapcpfa</code>. If <code>TRUE</code>, <code>x</code> is not included. If
+  <code>FALSE</code>, <code>x</code> is included. Defaults to <code>FALSE</code>.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional arguments to be passed to function <code>parafac</code> for fitting a
@@ -386,7 +392,8 @@ replication.</p>
   <dt>X</dt>
 <dd><p>Two-way matrix, or three-way or four-way data array or list used in argument
     <code>x</code>. If <code>x</code> was a three-way or four-way array, and if <code>model</code>
-    was <code>pca</code>, returns the flattened two-way matrix.</p></dd>
+    was <code>pca</code>, returns the flattened two-way matrix. If argument
+    <code>light = TRUE</code>, <code>X</code> is returned only as NULL.</p></dd>
 
   <dt>y</dt>
 <dd><p>Vector of class labels used in input argument <code>y</code>.</p></dd>

@@ -24,7 +24,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
      type.out = c("measures", "descriptives"), foldid = NULL, prior = NULL, 
      cmode = NULL, seeds = NULL, plot.out = FALSE, plot.measures = NULL, 
      parallel = FALSE, cl = NULL, verbose = TRUE, compscale = TRUE, 
-     pcarot = c("unrotated", "varimax"), ...)
+     pcarot = c("unrotated", "varimax"), light = FALSE, ...)
 ```
 
 ## Arguments
@@ -132,8 +132,8 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   gamma
 
   :   Values for support vector machine gamma parameter; default is
-      `gamma = c(0, 0.01, 0.1, 1, 10, 100, 1000)`. Must be numeric and
-      greater than or equal to 0.
+      `gamma = c(0.00001, 0.01, 0.1, 1, 10, 100, 1000)`. Must be numeric
+      and greater than or equal to 0.
 
   ntree
 
@@ -243,7 +243,8 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 
   Logical indicating whether to output one or more box plots of
   classification performance measures that are plotted across
-  classification methods and number of components.
+  classification methods and the number of components. Defaults to
+  `FALSE`.
 
 - plot.measures:
 
@@ -261,7 +262,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 - parallel:
 
   Logical indicating if parallel computing should be implemented.
-  Defaults to FALSE, which implements sequential computing.
+  Defaults to `FALSE`, which implements sequential computing.
 
 - cl:
 
@@ -271,20 +272,28 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 
 - verbose:
 
-  If TRUE, progress is printed.
+  Logicial indicating whether to print progress. If `TRUE`, progress is
+  printed. If `FALSE`, progress is not printed. Defaults to `TRUE`.
 
 - compscale:
 
   Logical indicating whether to scale each column of the estimated
   classification component weights matrix (i.e., the
   features/predictors). If `TRUE`, each column is scaled to have mean
-  zero and unit variance. If `FALSE`, no scaling is performed.
+  zero and unit variance. If `FALSE`, no scaling is performed. Defaults
+  to `TRUE`.
 
 - pcarot:
 
   Character indicating whether to apply a varimax rotation or leave PCA
   loadings unrotated when `model` is set to `pca`. Ignored when `model`
   is not `pca`. Defaults to `"unrotated"` if not specified.
+
+- light:
+
+  Logical indicating whether to exclude input `x` in the output object
+  of class `wrapcpfa`. If `TRUE`, `x` is not included. If `FALSE`, `x`
+  is included. Defaults to `FALSE`.
 
 - ...:
 
@@ -381,7 +390,8 @@ option, the returned list object includes the following:
 
   Two-way matrix, or three-way or four-way data array or list used in
   argument `x`. If `x` was a three-way or four-way array, and if `model`
-  was `pca`, returns the flattened two-way matrix.
+  was `pca`, returns the flattened two-way matrix. If argument
+  `light = TRUE`, `X` is returned only as NULL.
 
 - y:
 
