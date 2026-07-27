@@ -318,7 +318,7 @@ tunecpfa <-
       alpha <- sort(alpha)
     }
     if ('2' %in% method) {
-      if (is.null(gamma)) {gamma <- c(0, 0.01, 0.1, 1, 10, 100, 1000)}
+      if (is.null(gamma)) {gamma <- c(0.00001, 0.01, 0.1, 1, 10, 100, 1000)}
       if (any(gamma < 0L)) {
         stop("Input 'gamma' must contain real numbers equal to or greater \n 
              than zero.")
@@ -702,10 +702,16 @@ tunecpfa <-
          if (verbose == TRUE) {
            cat("nfac =", nfac[w], "method = nn", fill = TRUE)
          }
+         if (family == "binomial") {
+           entropy <- TRUE; softmax <- FALSE
+         } else {
+           entropy <- TRUE; softmax <- TRUE
+         }
          tic <- proc.time()
          nn.results <- kcv.nn(x = train, y = y, nfolds = nfolds,
                               foldid = foldid, nn.grid = nn.grid, 
-                              weights = weight, parallel = parallel)
+                              weights = weight, parallel = parallel,
+                              entropy = entropy, softmax = softmax)
          toc <- proc.time()
          time.nn <- toc[3] - tic[3]
          error.nn <- nn.results$error

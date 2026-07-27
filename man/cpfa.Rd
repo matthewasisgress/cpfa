@@ -24,7 +24,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
      type.out = c("measures", "descriptives"), foldid = NULL, prior = NULL, 
      cmode = NULL, seeds = NULL, plot.out = FALSE, plot.measures = NULL, 
      parallel = FALSE, cl = NULL, verbose = TRUE, compscale = TRUE, 
-     pcarot = c("unrotated", "varimax"), ...)
+     pcarot = c("unrotated", "varimax"), light = FALSE, ...)
 }
 \arguments{
 \item{x}{
@@ -112,8 +112,8 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 }
 \item{gamma}{
   Values for support vector machine gamma parameter; default is 
-  \code{gamma = c(0, 0.01, 0.1, 1, 10, 100, 1000)}. Must be numeric and greater 
-  than or equal to 0.
+  \code{gamma = c(0.00001, 0.01, 0.1, 1, 10, 100, 1000)}. Must be numeric and 
+  greater than or equal to 0.
 }
 \item{ntree}{
   Values for random forest number of trees parameter; default is 
@@ -206,7 +206,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 \item{plot.out}{
   Logical indicating whether to output one or more box plots of classification 
   performance measures that are plotted across classification methods and 
-  number of components.
+  the number of components. Defaults to \code{FALSE}.
 }
 \item{plot.measures}{
   Character vector containing values that specify for plotting one or more of 
@@ -220,7 +220,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 }
 \item{parallel}{
   Logical indicating if parallel computing should be implemented. Defaults to 
-  FALSE, which implements sequential computing.
+  \code{FALSE}, which implements sequential computing.
 }
 \item{cl}{
   Cluster for parallel computing, which is used when \code{parallel = TRUE}. 
@@ -228,18 +228,24 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   is defined as \code{makeCluster(max(1L, detectCores() - 1L))}.
 }
 \item{verbose}{
-  If TRUE, progress is printed.
+  Logicial indicating whether to print progress. If \code{TRUE}, progress is 
+  printed. If \code{FALSE}, progress is not printed. Defaults to \code{TRUE}.
 }
 \item{compscale}{
   Logical indicating whether to scale each column of the estimated 
   classification component weights matrix (i.e., the features/predictors). If
   \code{TRUE}, each column is scaled to have mean zero and unit variance. If 
-  \code{FALSE}, no scaling is performed.
+  \code{FALSE}, no scaling is performed. Defaults to \code{TRUE}.
 }
 \item{pcarot}{
   Character indicating whether to apply a varimax rotation or leave PCA loadings
   unrotated when \code{model} is set to \code{pca}. Ignored when \code{model} is
   not \code{pca}. Defaults to \code{"unrotated"} if not specified.
+}
+\item{light}{
+  Logical indicating whether to exclude input \code{x} in the output object of 
+  class \code{wrapcpfa}. If \code{TRUE}, \code{x} is not included. If 
+  \code{FALSE}, \code{x} is included. Defaults to \code{FALSE}.
 }
 \item{...}{
   Additional arguments to be passed to function \code{parafac} for fitting a 
@@ -326,7 +332,8 @@ replication.
   \item{X}{
     Two-way matrix, or three-way or four-way data array or list used in argument 
     \code{x}. If \code{x} was a three-way or four-way array, and if \code{model}
-    was \code{pca}, returns the flattened two-way matrix.
+    was \code{pca}, returns the flattened two-way matrix. If argument
+    \code{light = TRUE}, \code{X} is returned only as NULL. 
   }
   \item{y}{
     Vector of class labels used in input argument \code{y}.

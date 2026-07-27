@@ -7,7 +7,7 @@ cpfa <-
            prior = NULL, cmode = NULL, seeds = NULL, plot.out = FALSE,
            plot.measures = NULL, parallel = FALSE, cl = NULL,
            verbose = TRUE, compscale = TRUE, pcarot = c("unrotated", "varimax"),
-           ...)
+           light = FALSE, ...)
 {
     permflag <- FALSE
     models <- c("parafac", "parafac2", "pca")
@@ -395,11 +395,16 @@ cpfa <-
     }
     if (ccreated == TRUE) {stopCluster(cl)}
     if (permflag == TRUE) {x <- aperm(x, perm = order(mode.re))}
+    if (light == TRUE) {
+      xll <- NULL
+    } else {
+      xll <- x
+    }
     if (type.out == "measures") {
       cpfalist <- list(measure = stor, predweights = predstor,
                        train.weights = train.weights, opt.tune = opara,
                        opt.model = optmod, mean.opt.tune = mean.tune.param, 
-                       X = x, y = y, z = z, nfac = nfac, model = model, 
+                       X = xll, y = y, z = z, nfac = nfac, model = model, 
                        method = method, const = mconst, cmode = cmode0, 
                        family = family, lxdim = lxdim, trainIDs = trainIDs, 
                        testIDs = testIDs, flattened = flattened, 
@@ -429,7 +434,7 @@ cpfa <-
       cpfalist <- list(descriptive = output, predweights = predstor,
                        train.weights = train.weights, opt.tune = opara,
                        opt.model = optmod, mean.opt.tune = mean.tune.param, 
-                       X = x, y = y, z = z, nfac = nfac, model = model, 
+                       X = xll, y = y, z = z, nfac = nfac, model = model, 
                        method = method, const = mconst, cmode = cmode0, 
                        family = family, lxdim = lxdim, trainIDs = trainIDs, 
                        testIDs = testIDs, flattened = flattened, 

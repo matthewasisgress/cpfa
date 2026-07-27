@@ -35,7 +35,7 @@ kcv.plr <-
            lam <- fit0$lambda
            nlam <- length(fit0$lambda)
          }
-         if (!is.null(lambda)) {
+         if (!(is.null(lambda))) {
            lam <- lambda
            nlam <- length(lambda)
          }
@@ -65,7 +65,7 @@ kcv.plr <-
          minid <- which.min(cvm)
          mincv <- cvm[minid]
          stor.cvm[h] <- mincv
-         stor.minlam[h] <- minlam <- fit0$lambda[minid]
+         stor.minlam[h] <- minlam <- lam[minid]
       }
       minid <- which.min(stor.cvm)
       minlam <- stor.minlam[minid]

@@ -88,8 +88,8 @@ tunecpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 }
   \item{gamma}{
   Values for support vector machine gamma parameter; default is 
-  \code{gamma = c(0, 0.01, 0.1, 1, 10, 100, 1000)}. Must be numeric and greater 
-  than or equal to 0.
+  \code{gamma = c(0.00001, 0.01, 0.1, 1, 10, 100, 1000)}. Must be numeric and 
+  greater than or equal to 0.
 }
   \item{ntree}{
   Values for random forest number of trees parameter; default is 

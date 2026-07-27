@@ -1,7 +1,7 @@
 kcv.nn <-
   function(x, y, foldid = NULL, nn.grid, nfolds = NULL, weights = NULL,
            linout = FALSE, censored = FALSE, skip = FALSE, rang = 0.5, 
-           parallel = FALSE) 
+           parallel = FALSE, entropy = FALSE, softmax = FALSE) 
 {
     kcvcheck(y = y, nfolds = nfolds, parallel = parallel, foldid = foldid)
     if (is.null(weights)) {
@@ -31,7 +31,8 @@ kcv.nn <-
                                           decay = nn.grid[yy, 2], 
                                           linout = linout, weights = trweights,
                                           censored = censored, skip = skip, 
-                                          rang = rang, MaxNWts = 10000)
+                                          rang = rang, MaxNWts = 1e4,
+                                          entropy = entropy, softmax = softmax)
                            nn.pred <- predict(nn.fit, newdata = x.test, 
                                               type = 'raw')
                            y.pred <- as.numeric((apply(nn.pred, 1, 
@@ -54,7 +55,8 @@ kcv.nn <-
             nn.fit <- nnet(x = x.train, y = con.ytrain, trace = F,
                            size = nn.grid[yy, 1], decay = nn.grid[yy, 2],
                            linout = linout, censored = censored, skip = skip, 
-                           weights = trweights, rang = rang, MaxNWts = 10000)
+                           weights = trweights, rang = rang, MaxNWts = 1e4,
+                           entropy = entropy, softmax = softmax)
             nn.pred <- predict(nn.fit, newdata = x.test, type = 'raw')
             y.pred <- as.numeric((apply(nn.pred, 1, which.max))) - 1
             stortune[yy, 1] <- 1 - mean(y.pred == y.test) 
@@ -69,7 +71,8 @@ kcv.nn <-
     nn.fit.best <- nnet(x = x, y = con.y, trace = F, size = nn.grid[minid, 1], 
                         decay = nn.grid[minid, 2], linout = linout, 
                         censored = censored, skip = skip, weights = weights, 
-                        rang = rang, MaxNWts = 1e4)
+                        rang = rang, MaxNWts = 1e4, entropy = entropy, 
+                        softmax = softmax)
     return(list(nn.grid.id = minid, nn.fit = nn.fit.best, 
                 error = nn.mean[minid]))
 }
