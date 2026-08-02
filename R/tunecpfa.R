@@ -236,6 +236,9 @@ tunecpfa <-
     if (!(all(nfac == floor(nfac)))) {
       stop("Input 'nfac' must contain only integers.")
     }
+    if (!(all(nfac > 0))) {
+      stop("Input 'nfac' must contain integers greater than zero.")
+    }
     nfac <- sort(nfac)
     lnfac <- length(nfac)
     if (!((is.integer(nfolds)) || (is.numeric(nfolds)))) {
@@ -261,6 +264,9 @@ tunecpfa <-
       if (zdim[1] != length(y)) {
         stop("Input 'z', when provided, must have number of rows equal to \n
              the length of input 'y' (i.e., the number of observations).")
+      }
+      if (any(apply(z, 2, var) == 0)) {
+        stop("Input 'z' must contain columns that each have non-zero variance.")
       }
     }
     if (is.null(foldid)) {
@@ -443,6 +449,16 @@ tunecpfa <-
     } else if (lfam == 1L && family == 2L) {
       family <- "multinomial"
     }
+    if ((family == "binomial") && (!(ylev == 2L))) {
+      stop("Input 'family' was detected as 'binomial', but there are not \n
+           exactly two classes. When 'family' is 'binomial', there must be \n
+           exactly two classes.")
+    }
+    if ((family == "multinomial") && (!(ylev > 2L))) {
+      stop("Input 'family' was detected as 'multinomial', but there are not \n
+           more than two classes. When 'family' is 'multinomial', there must \n 
+           be more than two classes.")
+    }
     if (is.null(prior)) {
       prior <- as.numeric(table(y) / length(y))
       frac <- as.table(prior)
@@ -455,16 +471,23 @@ tunecpfa <-
       if (!(abs(sum(prior) - 1) < .Machine$double.eps^0.5)) {
         stop("Values within input 'prior' must sum to one.")
       }
+      if (any(as.numeric(prior)) < 0) {
+        stop("Input 'prior' cannot contain negative numbers.")
+      }
       if (!(is.numeric(prior))) {stop("Input 'prior' must be numeric.")}
       if (family == "binomial") {
         if (!(length(prior) == 2L))
-          stop("Input 'prior' must contain two values for family of \n
+          stop("Input 'prior' must contain two values when 'family' is \n
                 'binomial'.")
       }
       if (family == "multinomial") {
         if (!(length(prior) >= 3L))
-          stop("Input 'prior' must contain three or more values for family \n
-                of 'multinomial'.")
+          stop("Input 'prior' must contain three or more values when 'family' \n
+                is 'multinomial'.")
+      }
+      if (length(prior) != ylev) {
+        stop("Input 'prior' must have a length equal to the number of classes \n
+             in input 'y'.")
       }
       frac <- as.table(prior)
       pricorrect <- rep(1 / length(frac), length(frac))

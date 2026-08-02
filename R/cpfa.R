@@ -251,6 +251,9 @@ cpfa <-
         stop("Input 'z', when provided, must have number of rows equal to \n
              the length of input 'y' (i.e., the number of class labels).")
       }
+      if (any(apply(z, 2, var) == 0)) {
+        stop("Input 'z' must contain columns that each have non-zero variance.")
+      }
     }
     ntrain <- ceiling(nobs * ratio)
     if (!(is.null(foldid))) {
@@ -271,6 +274,10 @@ cpfa <-
               However, permutation alignment is only implemented for Parafac \n 
               or Parafac2. Thus, alignment was not implemented.")
       align <- FALSE
+    }
+    if ((align == TRUE) && (nrep == 1)) {
+      stop("Input 'nrep' is 1 while input 'align' is 'TRUE'. Input 'nrep' \n
+           must be greater than 1 when input 'align' is 'TRUE'.")
     }
     if (plot.out) {
       if (is.null(plot.measures)) {

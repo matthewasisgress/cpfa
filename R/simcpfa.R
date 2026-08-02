@@ -599,7 +599,10 @@ simcpfa <-
       }
     } else {
       distnam <- finnam; disttech <- fintech; distmodes <- finlets
-    } 
+    }
+    if (!(nclass < n)) {
+      stop("Input 'nclass' has more classes than the number of observations.")
+    }
     storXout <- storYout <- NULL; stordatout <- Inf; warnflag <- FALSE; 
     if (smethod == "logistic") {
       Sigma.sqrt <- evc$vectors %*% diag(sqrt(evc$values)) %*% t(evc$vectors) 
