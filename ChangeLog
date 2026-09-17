@@ -4,6 +4,14 @@ Changes: version 1.3.3  (2026-11-02)
 	- Previously five help file examples simulated data using Parafac2 G weights when Parafac B weights should have been used
 	- Now these examples correctly use Parafac B weights to simulate data
 
+2.) Fixed bug in function 'tunecpfa'
+	- Previously the following input combination produced an error: nfac = 1, family = "multinomial", and method = "PLR"
+	- Now the error is resolved for glmnet version 5.0 and above, which is now required 
+
+3.) Modified wording in the help file for function 'plotcpfa' to better reflect the function's purpose
+	- Previously the help file referred to the 'optimal' model identified in output from function 'cpfa'
+	- Now the help file refers to the 'best' model, which reflects that a comparison is made
+
 ----------------
 
 Changes: version 1.3.2  (2026-08-02)

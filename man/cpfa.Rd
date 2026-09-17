@@ -438,15 +438,6 @@ unfolded into a two-way matrix. If \code{x} is already input as a two-way
 matrix, the matrix is reshaped if \code{cmode} is 2, such that the matrix is 
 transposed. Note that for PCA, \code{Aweights} contains the PCA model loadings. 
 
-In addition, note that the following combination of arguments will give an 
-error: \code{nfac = 1, family = "multinomial", method = "PLR"}. The issue 
-arises from providing \code{glmnet::cv.glmnet} input \code{x} an input matrix 
-that has a single column. The issue is resolved for \code{family = "binomial"} 
-because a column of 0s is appended to the single column, but this solution 
-does not appear to work for the multiclass case. As such, this combination of 
-arguments is not currently allowed. Future updates are planned to resolve this 
-issue.
-
 Applications of this function to real datasets can be explored at the following
 repository: \url{https://github.com/matthewasisgress/multiway-classification/}.
 }

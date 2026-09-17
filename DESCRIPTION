@@ -8,7 +8,7 @@ Authors@R: person(given = c("Matthew", "A."), family = "Asisgress",
                   comment = c(ORCID = "0000-0001-7294-3348"))
 Maintainer: Matthew A. Asisgress <mattgress@protonmail.ch>
 Depends: R (>= 4.3.0), multiway
-Imports: glmnet, e1071, randomForest, nnet, rda, xgboost, foreach, 
+Imports: glmnet (>= 5.0), e1071, randomForest, nnet, rda, xgboost, foreach, 
     doParallel, doRNG, clue
 Suggests: knitr, rmarkdown
 Description: Classification using Richard A. Harshman's Parallel Factor 

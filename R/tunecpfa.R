@@ -657,12 +657,6 @@ tunecpfa <-
          tic <- proc.time()
          if ((nfac[w] == 1) || (nfac[w] == 1L)) {
            train.plr <- cbind(train, 0)
-           if (family == "multinomial") {
-             stop("Input combination nfac = 1, family = 'multinomial', and \n
-                  method = 'PLR' gives an error due to an issue interfacing \n
-                  with glmnet::cv.glmnet. Until resolved, this combination of \n
-                  arguments is not permitted.")
-           }
          } else {
            train.plr <- train
          }
