@@ -498,14 +498,6 @@ that the <code>cmode</code> dimension of <code>x</code> is ordered first. Then, 
 unfolded into a two-way matrix. If <code>x</code> is already input as a two-way
 matrix, the matrix is reshaped if <code>cmode</code> is 2, such that the matrix is
 transposed. Note that for PCA, <code>Aweights</code> contains the PCA model loadings.</p>
-<p>In addition, note that the following combination of arguments will give an
-error: <code>nfac = 1, family = "multinomial", method = "PLR"</code>. The issue
-arises from providing <code><a href="https://glmnet.stanford.edu/reference/cv.glmnet.html" class="external-link">glmnet::cv.glmnet</a></code> input <code>x</code> an input matrix
-that has a single column. The issue is resolved for <code>family = "binomial"</code>
-because a column of 0s is appended to the single column, but this solution
-does not appear to work for the multiclass case. As such, this combination of
-arguments is not currently allowed. Future updates are planned to resolve this
-issue.</p>
 <p>Applications of this function to real datasets can be explored at the following
 repository: <a href="https://github.com/matthewasisgress/multiway-classification/" class="external-link">https://github.com/matthewasisgress/multiway-classification/</a>.</p>
     </div>

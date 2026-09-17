@@ -432,16 +432,6 @@ already input as a two-way matrix, the matrix is reshaped if `cmode` is
 2, such that the matrix is transposed. Note that for PCA, `Aweights`
 contains the PCA model loadings.
 
-In addition, note that the following combination of arguments will give
-an error: `nfac = 1, family = "multinomial", method = "PLR"`. The issue
-arises from providing
-[`glmnet::cv.glmnet`](https://glmnet.stanford.edu/reference/cv.glmnet.html)
-input `x` with a matrix that has a single column. The issue is resolved
-for `family = "binomial"` because a column of 0s is appended to the
-single column, but this solution does not appear to work for the
-multiclass case. As such, this combination of arguments is not currently
-allowed. This issue will be resolved in a future update.
-
 Applications of this function to real datasets can be explored at the
 following repository:
 <https://github.com/matthewasisgress/multiway-classification/>.

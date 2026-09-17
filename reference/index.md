@@ -12,7 +12,7 @@
   : Permutation Feature Importance for Classification with Parallel
   Factor Analysis
 - [`plotcpfa()`](https://matthewasisgress.github.io/cpfa/reference/plotcpfa.md)
-  : Plot Optimal Model from Classification with Parallel Factor Analysis
+  : Plot Best Model from Classification with Parallel Factor Analysis
 - [`predict(`*`<tunecpfa>`*`)`](https://matthewasisgress.github.io/cpfa/reference/predict.tunecpfa.md)
   : Predict Method for Tuning for Classification with Parallel Factor
   Analysis
