@@ -167,11 +167,11 @@ set.seed(5)
 # define target correlation matrix for columns of C mode weights matrix
 cormat <- matrix(c(1, .6, .6, .6, 1, .6, .6, .6, 1), nrow = 3, ncol = 3)
 
-# define list of arguments specifying distributions for A and G weights
+# define list of arguments specifying distributions for A and B weights
 techlist <- list(distA = list(dname = "poisson", 
                               lambda = 3),                 # for A weights
-                 distG = list(dname = "gamma", shape = 2, 
-                              scale = 4))                  # for G weights
+                 distB = list(dname = "gamma", shape = 2, 
+                              scale = 4))                  # for B weights
 
 # simulate a three-way array connected to a response
 data <- simcpfa(arraydim = c(11, 12, 100), model = "parafac", nfac = 3, 
