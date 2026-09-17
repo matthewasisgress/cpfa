@@ -23,7 +23,7 @@ classification."><meta property="og:image" content="https://matthewasisgress.git
 
     <a class="navbar-brand me-2" href="../index.html">cpfa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -499,11 +499,11 @@ Methodology), 67(2), 301-320.</p>
 <span class="r-in"><span><span class="co"># set seed and simulate a three-way array connected to a binary response</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># define list of arguments specifying distributions for A and G weights</span></span></span>
+<span class="r-in"><span><span class="co"># define list of arguments specifying distributions for A and B weights</span></span></span>
 <span class="r-in"><span><span class="va">techlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>distA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dname <span class="op">=</span> <span class="st">"poisson"</span>, </span></span>
 <span class="r-in"><span>                              lambda <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,                 <span class="co"># for A weights</span></span></span>
-<span class="r-in"><span>                 distG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dname <span class="op">=</span> <span class="st">"gamma"</span>, shape <span class="op">=</span> <span class="fl">2</span>, </span></span>
-<span class="r-in"><span>                              scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>                  <span class="co"># for G weights</span></span></span>
+<span class="r-in"><span>                 distB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dname <span class="op">=</span> <span class="st">"gamma"</span>, shape <span class="op">=</span> <span class="fl">2</span>, </span></span>
+<span class="r-in"><span>                              scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>                  <span class="co"># for B weights</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># define target correlation matrix for columns of C mode weights matrix</span></span></span>
 <span class="r-in"><span><span class="va">cormat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">.6</span>, <span class="fl">.6</span>, <span class="fl">.6</span>, <span class="fl">1</span>, <span class="fl">.6</span>, <span class="fl">.6</span>, <span class="fl">.6</span>, <span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
