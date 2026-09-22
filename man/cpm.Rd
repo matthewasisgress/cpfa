@@ -55,7 +55,7 @@ classified as negatives, called false negatives (FN); and (4) positive cases
 classified as positives, called true positives (TP). 
 
 Multiple evaluation measures are calculated using these four outcomes. Measures 
-include: overall error (ERR), also called fraction incorrect;  overall accuracy 
+include: overall error (ERR), also called fraction incorrect; overall accuracy 
 (ACC), also called fraction correct; true positive rate (TPR), also called 
 recall, hit rate, or sensitivity; false negative rate (FNR), also called miss 
 rate; false positive rate (FPR), also called fall-out; true negative rate 

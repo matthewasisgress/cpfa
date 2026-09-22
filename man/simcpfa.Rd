@@ -43,7 +43,7 @@ simcpfa(arraydim = NULL, model = "parafac", nfac = 2, nclass = 2,
   Simulation method, either "logistic" or "eigende". The former implements an 
   iterative Monte Carlo rejection sampling method based on the generalized
   linear model (slower). The latter uses a multivariate normal
-  distribution and constructs a joint covariance matrix, employing a 
+  distribution and constructs a joint covariance matrix, employing an 
   eigendecomposition and assuming class labels arise from discretizing 
   continuous latent variables (faster).
 }
@@ -162,7 +162,7 @@ simcpfa(arraydim = NULL, model = "parafac", nfac = 2, nclass = 2,
   information on acceptable arguments. Ignored if \code{model = 'pca'}.
 }
 \item{distC}{
-  For when \code{modes = '4'}, list containing arguments specifying the 
+  For when \code{modes = 4}, list containing arguments specifying the 
   distribution from which deviates are drawn for C mode weights contained in 
   \code{Cmat}. Defaults to standard normal distribution when not specified. 
   See Details section for additional information on acceptable arguments. 
