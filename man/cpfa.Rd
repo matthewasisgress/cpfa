@@ -24,7 +24,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
      type.out = c("measures", "descriptives"), foldid = NULL, prior = NULL, 
      cmode = NULL, seeds = NULL, plot.out = FALSE, plot.measures = NULL, 
      parallel = FALSE, cl = NULL, verbose = TRUE, compscale = TRUE, 
-     pcarot = c("unrotated", "varimax"), light = FALSE, ...)
+     pcarot = c("unrotated", "varimax"), light = FALSE, stratify = FALSE,...)
 }
 \arguments{
 \item{x}{
@@ -228,7 +228,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   is defined as \code{makeCluster(max(1L, detectCores() - 1L))}.
 }
 \item{verbose}{
-  Logicial indicating whether to print progress. If \code{TRUE}, progress is 
+  Logical indicating whether to print progress. If \code{TRUE}, progress is 
   printed. If \code{FALSE}, progress is not printed. Defaults to \code{TRUE}.
 }
 \item{compscale}{
@@ -246,6 +246,13 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   Logical indicating whether to exclude input \code{x} in the output object of 
   class \code{wrapcpfa}. If \code{TRUE}, \code{x} is not included. If 
   \code{FALSE}, \code{x} is included. Defaults to \code{FALSE}.
+}
+\item{stratify}{
+  Logical indicating whether to use stratified random sampling for the outer
+  split. If \code{TRUE}, observations are sampled within each class level of 
+  \code{y} to preserve relative class proportions and maintain class 
+  representation across splits. If \code{FALSE}, observations are partitioned 
+  via simple random sampling. Defaults to \code{FALSE}.
 }
 \item{...}{
   Additional arguments to be passed to function \code{parafac} for fitting a 

@@ -12,6 +12,10 @@ Changes: version 1.3.3  (2026-11-02)
 	- Previously the help file referred to the 'optimal' model identified in output from function 'cpfa'
 	- Now the help file refers to the 'best' model, which reflects that a comparison is made
 
+4.) Added 'stratify' argument to function 'cpfa'
+	- Previously function 'cpfa' allowed only simple random sampling to partition observations into training and test sets
+	- Now argument 'stratify' allows the option for stratified random sampling based on the observed class proportions in input 'y' 
+
 ----------------
 
 Changes: version 1.3.2  (2026-08-02)

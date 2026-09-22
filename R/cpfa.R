@@ -7,8 +7,8 @@ cpfa <-
            prior = NULL, cmode = NULL, seeds = NULL, plot.out = FALSE,
            plot.measures = NULL, parallel = FALSE, cl = NULL,
            verbose = TRUE, compscale = TRUE, pcarot = c("unrotated", "varimax"),
-           light = FALSE, ...)
-{
+           light = FALSE, stratify = FALSE, ...)
+  {
     permflag <- FALSE
     models <- c("parafac", "parafac2", "pca")
     model0 <- sum(tolower(model) %in% models)
@@ -255,7 +255,17 @@ cpfa <-
         stop("Input 'z' must contain columns that each have non-zero variance.")
       }
     }
-    ntrain <- ceiling(nobs * ratio)
+    logicheck(stratify)
+    if (stratify == TRUE) {
+      cla <- unique(y)
+      ntrainc0 <- vapply(cla, function(lev) {
+        nc <- sum(y == lev) 
+        as.integer(max(1L, min(nc - 1L, ceiling(nc * ratio))))}, 
+        integer(1))
+      ntrain <- sum(ntrainc0)
+    } else {
+      ntrain <- ceiling(nobs * ratio)
+    }
     if (!(is.null(foldid))) {
       if (!(is.list(foldid))) {
         stop("Input 'foldid' must be of class 'list' when provided.")
@@ -265,7 +275,7 @@ cpfa <-
       }
       if (any(unlist(lapply(foldid, length)) != ntrain)) {
         stop("Each vector in 'foldid' must have length equal to \n
-             ceiling(nobs * ratio).")
+             the number of training observations.")
       }
     }
     logicheck(plot.out); logicheck(align)
@@ -309,59 +319,71 @@ cpfa <-
       clusterEvalQ(cl, library(multiway))
     }
     for (i in 1:nrep) {
-      if (verbose == TRUE) {cat("nrep =", i, " \n")}
-      set.seed(seed = seeds[i])
-      train.id <- trainIDs[[i]] <- sample.int(nobs, size = ntrain)
-      alllevels <- 1:nobs
-      testIDs[[i]] <- alllevels[-train.id]
-      y.train <- y[train.id]
-      y.test <- as.numeric(y[-train.id]) - 1
-      if (!(is.null(z))) {
-        z.train <- z[train.id, , drop = FALSE]
-        z.test <- z[-train.id, , drop = FALSE]
-      } else {
-        z.train <- z.test <- NULL
-      }
-      if (model == "parafac") {
-        if (lxdim == 3L) {
-          X.train <- x[, , train.id]                       
-          X.test <- x[, , -train.id]
-        } else {
-          X.train <- x[, , , train.id]
-          X.test <- x[, , , -train.id]
-        }
-      } else if (model == "pca") {
-        X.train <- x[train.id, , drop = FALSE]
-        X.test <- x[-train.id, , drop = FALSE]
-      } else {
-        X.train <- x[train.id]
-        X.test <- x[-train.id]
-      }
-      if (is.null(foldid)) {
-        cfoldid <- NULL
-      } else {
-        cfoldid <- foldid[[i]]
-      }
-      tcpfalist <- tunecpfa(x = X.train, y = y.train, z = z.train, 
-                            model = model, nfac = nfac, nfolds = nfolds, 
-                            method = method, family = family, 
-                            parameters = parameters, foldid = cfoldid, 
-                            prior = prior, cmode = NULL, parallel = parallel, 
-                            cl = cl, verbose = verbose, compscale = compscale, 
-                            pcarot = pcarot, ...)
-      Aw[[i]] <- tcpfalist$Aweights
-      Bw[[i]] <- tcpfalist$Bweights
-      Cw[[i]] <- tcpfalist$Cweights
-      Pw[[i]] <- tcpfalist$Phi
-      Tw[[i]] <- tcpfalist$train.weights
-      opara[[i]] <- tcpfalist$opt.param
-      optmod[[i]] <- tcpfalist$opt.model
-      yhat <- predict(object = tcpfalist, newdata = X.test, newdata.z = z.test, 
-                      type = "response")           
-      out <- cpm.all(x = yhat, y = y.test, level = levels(y))
-      stor[ , , i] <- as.matrix(out$cpms)
-      predstor[[i]] <- predict(object = tcpfalist, newdata = X.test,
-                               newdata.z = z.test, type = "classify.weights")
+       if (verbose == TRUE) {cat("nrep =", i, " \n")}
+       set.seed(seed = seeds[i])
+       alllevels <- 1:nobs
+       if (stratify == TRUE) {
+         cla <- unique(y)
+         trainids <- vector("list", length(cla))
+         for (gg in seq_along(cla)) {
+           cidx <- which(y == cla[gg])
+           ntrainc <- max(1, min(length(cidx) - 1, 
+                                 ceiling(length(cidx) * ratio)))
+           trainids[[gg]] <- cidx[sample.int(length(cidx), size = ntrainc)]
+         }
+         train.id <- trainIDs[[i]] <- unlist(trainids)
+       } else {
+         train.id <- trainIDs[[i]] <- sample.int(nobs, size = ntrain)
+       }
+       testIDs[[i]] <- alllevels[-train.id]
+       y.train <- y[train.id]
+       y.test <- as.numeric(y[-train.id]) - 1
+       if (!(is.null(z))) {
+         z.train <- z[train.id, , drop = FALSE]
+         z.test <- z[-train.id, , drop = FALSE]
+       } else {
+         z.train <- z.test <- NULL
+       }
+       if (model == "parafac") {
+         if (lxdim == 3L) {
+           X.train <- x[, , train.id]                       
+           X.test <- x[, , -train.id]
+         } else {
+           X.train <- x[, , , train.id]
+           X.test <- x[, , , -train.id]
+         }
+       } else if (model == "pca") {
+         X.train <- x[train.id, , drop = FALSE]
+         X.test <- x[-train.id, , drop = FALSE]
+       } else {
+         X.train <- x[train.id]
+         X.test <- x[-train.id]
+       }
+       if (is.null(foldid)) {
+         cfoldid <- NULL
+       } else {
+         cfoldid <- foldid[[i]]
+       }
+       tcpfalist <- tunecpfa(x = X.train, y = y.train, z = z.train, 
+                             model = model, nfac = nfac, nfolds = nfolds, 
+                             method = method, family = family, 
+                             parameters = parameters, foldid = cfoldid, 
+                             prior = prior, cmode = NULL, parallel = parallel, 
+                             cl = cl, verbose = verbose, compscale = compscale, 
+                             pcarot = pcarot, ...)
+       Aw[[i]] <- tcpfalist$Aweights
+       Bw[[i]] <- tcpfalist$Bweights
+       Cw[[i]] <- tcpfalist$Cweights
+       Pw[[i]] <- tcpfalist$Phi
+       Tw[[i]] <- tcpfalist$train.weights
+       opara[[i]] <- tcpfalist$opt.param
+       optmod[[i]] <- tcpfalist$opt.model
+       yhat <- predict(object = tcpfalist, newdata = X.test, newdata.z = z.test, 
+                       type = "response")           
+       out <- cpm.all(x = yhat, y = y.test, level = levels(y))
+       stor[ , , i] <- as.matrix(out$cpms)
+       predstor[[i]] <- predict(object = tcpfalist, newdata = X.test,
+                                newdata.z = z.test, type = "classify.weights")
     }
     mconst <- tcpfalist$const
     rnam <- rownames(out$cpms)
@@ -385,19 +407,19 @@ cpfa <-
       methnames <- gsub('[[:digit:]]+', '', methnames0)
       nfacnames <- as.numeric(gsub(".*?([0-9]+).*", "\\1", rownames(stor)))
       for (i in 1:nrep) {
-        indl <- matnum * (i - 1) + 1
-        indu <- matnum * i
-        plotstor[indl:indu, 1] <- methnames
-        plotstor[indl:indu, 2] <- nfacnames
-        plotstor[indl:indu, 3] <- i
-        plotstor[indl:indu, 4:14] <- stor[, , i]
+         indl <- matnum * (i - 1) + 1
+         indu <- matnum * i
+         plotstor[indl:indu, 1] <- methnames
+         plotstor[indl:indu, 2] <- nfacnames
+         plotstor[indl:indu, 3] <- i
+         plotstor[indl:indu, 4:14] <- stor[, , i]
       }
       toplot <- colnames(plotstor)[plottype]
       for (j in 1:length(plottype)) {
-        pformula <- formula(paste0(toplot[j], " ~ ", "method * nfac"))
-        boxplot(pformula, data = plotstor, ylim = c(0, 1),
-                xlab = "Method and Number of Components", na.rm = FALSE,
-                ylab = toupper(toplot[j]), main = "Performance Measure")
+         pformula <- formula(paste0(toplot[j], " ~ ", "method * nfac"))
+         boxplot(pformula, data = plotstor, ylim = c(0, 1),
+                 xlab = "Method and Number of Components", na.rm = FALSE,
+                 ylab = toupper(toplot[j]), main = "Performance Measure")
       }
     }
     if (ccreated == TRUE) {stopCluster(cl)}
@@ -434,8 +456,8 @@ cpfa <-
          output[[j]] <- apply(stor, 1:2,
                               FUN = function(x){return(get(dfun[j])(x,
                                                                 na.rm = TRUE))})
-        rownames(output[[j]]) <- rnam
-        colnames(output[[j]]) <- cnam
+         rownames(output[[j]]) <- rnam
+         colnames(output[[j]]) <- cnam
       }
       names(output) <- dfun  
       cpfalist <- list(descriptive = output, predweights = predstor,
@@ -458,4 +480,4 @@ cpfa <-
       }
       return(cpfalist)
     }
-}
+  }

@@ -162,8 +162,8 @@ tunecpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   the mode whose component weights will be predictors for classification. 
   Defaults to the last mode of the input array (i.e., defaults to 3 for 
   a three-way array, and to 4 for a four-way array). 
-  If \code{model = "parafac2"}, last mode will be used. If \code{model = "pca"},
-  cmode is set to the first mode. 
+  If \code{model = "parafac2"}, the last mode will be used. If 
+  \code{model = "pca"}, cmode is set to the first mode. 
 }
 \item{parallel}{
   Logical indicating if parallel computing should be implemented. Defaults to 
@@ -342,7 +342,7 @@ Returns an object of class \code{tunecpfa} with the following elements:
   \code{FALSE} if argument \code{compscale = FALSE}.
 }
 \item{sscales}{
-  List containing standard devition of the scale for each Parafac or Parafac2 
+  List containing standard deviation of the scale for each Parafac or Parafac2 
   model that was fit. Note that, for each component, estimated classification 
   weights are scaled to have a variance of 1 before being passed to 
   classification methods. Returns \code{FALSE} if argument 
