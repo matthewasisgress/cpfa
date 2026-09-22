@@ -218,8 +218,8 @@ classification.</p>
   the mode whose component weights will be predictors for classification.
   Defaults to the last mode of the input array (i.e., defaults to 3 for
   a three-way array, and to 4 for a four-way array).
-  If <code>model = "parafac2"</code>, last mode will be used. If <code>model = "pca"</code>,
-  cmode is set to the first mode.</p></dd>
+  If <code>model = "parafac2"</code>, the last mode will be used. If
+  <code>model = "pca"</code>, cmode is set to the first mode.</p></dd>
 
 <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
 <dd><p>Logical indicating if parallel computing should be implemented. Defaults to
@@ -397,7 +397,7 @@ classification parameters where the number of folds is set by argument
   <code>FALSE</code> if argument <code>compscale = FALSE</code>.</p></dd>
 
 <dt>sscales</dt>
-<dd><p>List containing standard devition of the scale for each Parafac or Parafac2
+<dd><p>List containing standard deviation of the scale for each Parafac or Parafac2
   model that was fit. Note that, for each component, estimated classification
   weights are scaled to have a variance of 1 before being passed to
   classification methods. Returns <code>FALSE</code> if argument

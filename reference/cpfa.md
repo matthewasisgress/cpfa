@@ -24,7 +24,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
      type.out = c("measures", "descriptives"), foldid = NULL, prior = NULL, 
      cmode = NULL, seeds = NULL, plot.out = FALSE, plot.measures = NULL, 
      parallel = FALSE, cl = NULL, verbose = TRUE, compscale = TRUE, 
-     pcarot = c("unrotated", "varimax"), light = FALSE, ...)
+     pcarot = c("unrotated", "varimax"), light = FALSE, stratify = FALSE,...)
 ```
 
 ## Arguments
@@ -272,7 +272,7 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
 
 - verbose:
 
-  Logicial indicating whether to print progress. If `TRUE`, progress is
+  Logical indicating whether to print progress. If `TRUE`, progress is
   printed. If `FALSE`, progress is not printed. Defaults to `TRUE`.
 
 - compscale:
@@ -294,6 +294,14 @@ cpfa(x, y, z = NULL, model = c("parafac", "parafac2", "pca"), nfac = 1,
   Logical indicating whether to exclude input `x` in the output object
   of class `wrapcpfa`. If `TRUE`, `x` is not included. If `FALSE`, `x`
   is included. Defaults to `FALSE`.
+
+- stratify:
+
+  Logical indicating whether to use stratified random sampling for the
+  outer split. If `TRUE`, observations are sampled within each class
+  level of `y` to preserve relative class proportions and maintain class
+  representation across splits. If `FALSE`, observations are partitioned
+  via simple random sampling. Defaults to `FALSE`.
 
 - ...:
 
